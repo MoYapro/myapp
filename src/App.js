@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Button, Paper, TextField, Typography} from 'material-ui'
-import List, { ListItem, ListItemText } from 'material-ui/List'
+import List, {ListItem, ListItemText} from 'material-ui/List'
 
 export default class App extends Component {
   state = {
@@ -20,7 +20,7 @@ export default class App extends Component {
   handleButton = e => {
     e.preventDefault();
     if (this.state.title) {
-      this.setState(({ exercises, title }) => ({
+      this.setState(({exercises, title}) => ({
         exercises: [
           ...exercises,
           {title, id: Date.now()}
@@ -33,25 +33,29 @@ export default class App extends Component {
   render() {
     const {title, exercises} = this.state;
     return (
-        <Paper>
-          <Typography variant='display1' align='center'
-                      gutterBottom>Home</Typography>
+        <div>
+          <Paper>
+            <Typography variant='display1' align='center'
+                        gutterBottom>Home</Typography>
 
-          <form onSubmit={this.handleButton}>
-            <TextField name='title' label='Exercise' value={title}
-                       onChange={this.handleChange} margin='normal'/>
-            <Button type='submit' color='primary' variant='raised'>
-              Create
-            </Button>
-          </form>
-          <List>
-            {exercises.map(({ id, title }) =>
-                <ListItem key={id}>
-                  <ListItemText primary={title} />
-                </ListItem>
-            )}
-          </List>
-        </Paper>
+            <form onSubmit={this.handleButton}>
+              <TextField name='title' label='Exercise' value={title}
+                         onChange={this.handleChange} margin='normal'/>
+              <Button type='submit' color='primary' variant='raised'>
+                Create
+              </Button>
+            </form>
+          </Paper>
+          <Paper>
+            <List>
+              {exercises.map(({id, title}) =>
+                  <ListItem key={id}>
+                    <ListItemText primary={title}/>
+                  </ListItem>
+              )}
+            </List>
+          </Paper>
+        </div>
     )
   }
 
