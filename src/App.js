@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import Typography from 'material-ui/Typography'
-import TextField from 'material-ui/TextField'
+import {Typography, Paper, TextField} from 'material-ui'
 
 export default class App extends Component {
   state = {
@@ -16,14 +15,14 @@ export default class App extends Component {
   render() {
 const { title } = this.state;
     return (
-        <div>
+        <Paper>
         <Typography variant='display1' align='center'
                     gutterBottom>Home</Typography>
 
         <form>
         <TextField name='title' label='Exercise' value={title} onChange={this.handleChange} margin='normal'/>
         </form>
-        </div>
+        </Paper>
     )
   }
 }
