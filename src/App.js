@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Button, Paper, TextField, Typography} from 'material-ui'
-import List, {ListItem, ListItemText} from 'material-ui/List'
 import {MonthsLegend} from './components/monthLegend'
+import {Stash} from './components/stash'
 
 const paperStyle = {
   margin: 20,
@@ -52,24 +52,7 @@ export default class App extends Component {
             </form>
           </Paper>
           <MonthsLegend/>
-          <Paper style={paperStyle}>
-            <List>
-              {stash.map(({monthYear, value}) =>
-                  <ListItem key={monthYear}>
-                    <ListItemText primary={value}/>
-                  </ListItem>
-              )}
-            </List>
-          </Paper>
-          <Paper style={paperStyle}>
-            <List>
-              {stash.map(({monthYear, value}) =>
-                  <ListItem key={monthYear}>
-                    <ListItemText primary={value}/>
-                  </ListItem>
-              )}
-            </List>
-          </Paper>
+          <Stash stash={stash}/>
         </div>
     )
   }
