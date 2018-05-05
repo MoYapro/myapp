@@ -2,14 +2,22 @@ import React, {Component} from 'react'
 import {Button, Paper, TextField, Typography} from 'material-ui'
 import List, {ListItem, ListItemText} from 'material-ui/List'
 
+const paperStyle = {
+  margin: 20,
+  textAlign: 'center',
+  display: 'inline-block',
+};
+
+const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni','Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+
 export default class App extends Component {
   state = {
-    exercises: [
-      {id: 1, title: 'one'},
-      {id: 2, title: 'two'},
-      {id: 3, title: 'three'}
+    stash: [
+      {monthYear: {month: 0, value: 100}, value: 12},
+      {monthYear: {month: 1, value: 200}, value: 33},
+      {monthYear: {month: 2, value: 300}, value: -5}
     ],
-    title: ''
+    value: ''
   };
 
   handleChange = ({target: {name, value}}) =>
@@ -19,38 +27,53 @@ export default class App extends Component {
 
   handleButton = e => {
     e.preventDefault();
-    if (this.state.title) {
-      this.setState(({exercises, title}) => ({
-        exercises: [
-          ...exercises,
-          {title, id: Date.now()}
+    if (this.state.value) {
+      this.setState(({stash, value}) => ({
+        stash: [
+          ...stash,
+          {monthYear: {month: 4, value: 300}, value: 666}
         ],
-        title: ''
+        value: ''
       }))
     }
   };
 
   render() {
-    const {title, exercises} = this.state;
+    const {title, stash} = this.state;
     return (
         <div>
           <Paper>
-            <Typography variant='display1' align='center'
-                        gutterBottom>Home</Typography>
-
+            <Typography variant='display1' align='center'gutterBottom>Hab ich noch Geld?</Typography>
             <form onSubmit={this.handleButton}>
-              <TextField name='title' label='Exercise' value={title}
-                         onChange={this.handleChange} margin='normal'/>
+              <TextField name='title' label='ignore me' value={title} onChange={this.handleChange} margin='normal' />
               <Button type='submit' color='primary' variant='raised'>
                 Create
               </Button>
             </form>
           </Paper>
-          <Paper>
+          <Paper style={paperStyle}>
             <List>
-              {exercises.map(({id, title}) =>
-                  <ListItem key={id}>
-                    <ListItemText primary={title}/>
+              {months.map((i) =>
+                  <ListItem key={i}>
+                    <ListItemText primary={i}/>
+                  </ListItem>
+              )}
+            </List>
+          </Paper>
+          <Paper style={paperStyle}>
+            <List>
+              {stash.map(({monthYear, value}) =>
+                  <ListItem key={monthYear}>
+                    <ListItemText primary={value}/>
+                  </ListItem>
+              )}
+            </List>
+          </Paper>
+          <Paper style={paperStyle}>
+            <List>
+              {stash.map(({monthYear, value}) =>
+                  <ListItem key={monthYear}>
+                    <ListItemText primary={value}/>
                   </ListItem>
               )}
             </List>
