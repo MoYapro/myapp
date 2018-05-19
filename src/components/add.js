@@ -1,11 +1,6 @@
 import React from 'react'
-import {Button, Paper, TextField} from 'material-ui'
+import {Button, TextField} from 'material-ui'
 
-const paperStyle = {
-  margin: 20,
-  textAlign: 'center',
-  display: 'inline-block',
-};
 export class Add extends React.Component {
 
   state = {
