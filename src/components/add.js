@@ -24,12 +24,16 @@ export class Add extends React.Component {
   handleMonthChange = (event) => {
     this.setState({month: event.target.value})
   };
+  handleNoteChange = (event) => {
+    this.setState({note: event.target.value})
+  };
 
   handleButton = e => {
     e.preventDefault();
     let stuff = {
       'monthYear': {year: this.state.year, month: this.state.month},
-      'value': parseFloat(this.state.value)
+      'value': parseFloat(this.state.value),
+      'note': this.state.note
     };
 
     console.log('Add stuff to stash: ', stuff);
@@ -47,14 +51,11 @@ export class Add extends React.Component {
                 value={this.state.month}
                 onChange={this.handleMonthChange}
             >
-            {months.map((month, index) => <option key={index} value={index} label={month}/>)}
+              {months.map((month, index) => <option key={index} value={index} label={month}/>)}
             </Select>
-
-            <TextField name='amount' value={this.state.value}
-                       onChange={this.handleAmountChange} margin='normal'/>
-            <Button type='submit' color='primary' variant='raised'>
-              Create
-            </Button>
+            <TextField name='amount' value={this.state.value} onChange={this.handleAmountChange} margin='normal'/>
+            <TextField name='note' value={this.state.note} onChange={this.handleNoteChange} margin='normal'/>
+            <Button type='submit' color='primary' variant='raised'>Eintragen</Button>
           </form>
         </Paper>
     )
