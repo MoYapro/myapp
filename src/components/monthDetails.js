@@ -19,7 +19,7 @@ export class MonthDetails extends React.Component {
             {renderedItems.map((data, i) => {
                   return (
                       <ListItem key={i}>
-                        <ListItemText primary={data.note} style={{width: 150}}/>
+                        <ListItemText primary={data.note ? data.note : ''} style={{width: 150}}/>
                         <ListItemText primary={data.value}/>
                       </ListItem>
                   )
