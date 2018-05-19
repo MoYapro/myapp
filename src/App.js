@@ -10,7 +10,7 @@ export default class App extends Component {
       {monthYear: {year: 2018, month: 1}, value: 33, note: 'Urlaub'},
       {monthYear: {year: 2018, month: 2}, value: -5, note: 'Klamotten'},
       {monthYear: {year: 2018, month: 3}, value: -5, note: 'Ausflug'},
-      {monthYear: {year: 2018, month: 4}, value: -5, note: 'Auto'},
+      {monthYear: {year: 2018, month: 4}, value: 0, note: ''},
       {monthYear: {year: 2018, month: 5}, value: -5, note: 'Spielzeug'},
       {monthYear: {year: 2018, month: 6}, value: -5, note: 'Eis'},
       {monthYear: {year: 2018, month: 7}, value: -5, note: 'Spaß haben'},

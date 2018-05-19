@@ -48,9 +48,10 @@ export class Stash extends React.Component {
           <Paper style={paperStyle}>
             <List>
               {grouped.map((data) => {
+                let displayValue = data.value ? data.value : '0';
                     return (
                         <ListItem key={data.monthYear} button onClick={this.handleMonthClick(data.monthYear)}>
-                          <ListItemText primary={data.value}/>
+                          <ListItemText primary={displayValue}/>
                         </ListItem>
                     )
                   }
