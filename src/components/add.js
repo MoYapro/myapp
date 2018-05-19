@@ -1,6 +1,5 @@
 import React from 'react'
 import {Button, Paper, Select, TextField} from 'material-ui'
-import InputLabel from "material-ui/es/Input/InputLabel";
 
 const paperStyle = {
   margin: 20,
@@ -36,21 +35,19 @@ export class Add extends React.Component {
     console.log('Add stuff to stash: ', stuff);
 
     this.props.addMethod(stuff);
+    this.setState({value: ''});
   };
 
   render() {
     return (
         <Paper style={paperStyle}>
           <form onSubmit={this.handleButton}>
-            <InputLabel htmlFor="age-native-simple">Monat</InputLabel>
-
             <Select
                 native
                 value={this.state.month}
-                // renderValue={value => months[value]}
                 onChange={this.handleMonthChange}
             >
-            {months.map((month, index) => <option value={index} label={month}/>)}
+            {months.map((month, index) => <option key={index} value={index} label={month}/>)}
             </Select>
 
             <TextField name='amount' value={this.state.value}
