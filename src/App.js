@@ -6,18 +6,19 @@ import {Add} from './components/add'
 export default class App extends Component {
   state = {
     stash: [
-      {monthYear: {month: 0, value: 100}, value: 12},
-      {monthYear: {month: 1, value: 200}, value: 33},
-      {monthYear: {month: 2, value: 300}, value: -5},
-      {monthYear: {month: 3, value: 300}, value: -5},
-      {monthYear: {month: 4, value: 300}, value: -5},
-      {monthYear: {month: 5, value: 300}, value: -5},
-      {monthYear: {month: 6, value: 300}, value: -5},
-      {monthYear: {month: 7, value: 300}, value: -5},
-      {monthYear: {month: 8, value: 300}, value: -5},
-      {monthYear: {month: 9, value: 300}, value: -5},
-      {monthYear: {month: 10, value: 300}, value: -5},
-      {monthYear: {month: 11, value: 300}, value: -5},
+      {monthYear: {year: 2018, month: 0}, value: 12},
+      {monthYear: {year: 2018, month: 0}, value: 88},
+      {monthYear: {year: 2018, month: 1}, value: 33},
+      {monthYear: {year: 2018, month: 2}, value: -5},
+      {monthYear: {year: 2018, month: 3}, value: -5},
+      {monthYear: {year: 2018, month: 4}, value: -5},
+      {monthYear: {year: 2018, month: 5}, value: -5},
+      {monthYear: {year: 2018, month: 6}, value: -5},
+      {monthYear: {year: 2018, month: 7}, value: -5},
+      {monthYear: {year: 2018, month: 8}, value: -5},
+      {monthYear: {year: 2018, month: 9}, value: -5},
+      {monthYear: {year: 2018, month: 10}, value: -5},
+      {monthYear: {year: 2018, month: 11}, value: -5},
     ],
     value: ''
   };
