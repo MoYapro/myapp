@@ -9,21 +9,16 @@ const paperStyle = {
 
 export class Add extends React.Component {
 
-  handleChange = ({target: {name, value}}) =>
-      this.setState({
-        [name]: value
-      });
+  state = {value: ''};
+
+  handleChange = (event) => {
+    this.setState({value: event.target.value})
+  };
 
   handleButton = e => {
     e.preventDefault();
-    this.props.stash;
-      this.setState(({stash}) => ({
-        stash: [
-          ...stash,
-          {monthYear: {month: 4, value: 300}, value: 666}
-        ],
-        value: ''
-      }))
+    let stuff = {value: this.state.value}
+    this.props.addMethod(stuff);
 
   };
 
@@ -31,7 +26,7 @@ export class Add extends React.Component {
     return (
         <Paper style={paperStyle}>
           <form onSubmit={this.handleButton}>
-            <TextField name='title' value=''
+            <TextField name='xxx' value={this.state.value}
                        onChange={this.handleChange} margin='normal'/>
             <Button type='submit' color='primary' variant='raised'>
               Create

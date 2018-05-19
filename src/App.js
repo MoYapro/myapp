@@ -22,15 +22,25 @@ export default class App extends Component {
     value: ''
   };
 
-  render() {
-    const {stash} = this.state;
-    return (
-        <div>
-          <Add stash={stash}/>
-          <MonthsLegend/>
-          <Stash stash={stash}/>
-        </div>
-    )
-  }
+  add = (stuff) => {
+    console.log(stuff);
+    this.setState(({stash}) => ({
+      stash: [
+        ...stash,
+        stuff
+      ]
+    }))};
 
-}
+    render()
+    {
+      const {stash} = this.state;
+      return (
+          <div>
+            <Add stash={stash} addMethod={this.add}/>
+            <MonthsLegend/>
+            <Stash stash={stash}/>
+          </div>
+      )
+    }
+
+  }
