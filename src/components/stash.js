@@ -19,14 +19,15 @@ export class Stash extends React.Component {
       'value': _.sumBy(items, 'value')
     }))
     .value();
-    console.log(grouped);
     return (
         <Paper style={paperStyle}>
           <List>
-            {this.props.stash.map(({monthYear, value}) =>
-                <ListItem key={monthYear}>
-                  <ListItemText primary={value}/>
+            {grouped.map((data, index) => {
+                return (
+                <ListItem key={data.monthYear}>
+                  <ListItemText primary={data.value}/>
                 </ListItem>
+                )}
             )}
           </List>
         </Paper>
