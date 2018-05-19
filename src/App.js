@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {Button, Paper, TextField, Typography} from 'material-ui'
 import {MonthsLegend} from './components/monthLegend'
 import {Stash} from './components/stash'
+import {Add} from './components/add'
 
 export default class App extends Component {
   state = {
@@ -22,39 +22,12 @@ export default class App extends Component {
     value: ''
   };
 
-  handleChange = ({target: {name, value}}) =>
-      this.setState({
-        [name]: value
-      });
-
-  handleButton = e => {
-    e.preventDefault();
-    if (this.state.value) {
-      this.setState(({stash}) => ({
-        stash: [
-          ...stash,
-          {monthYear: {month: 4, value: 300}, value: 666}
-        ],
-        value: ''
-      }))
-    }
-  };
-
   render() {
-    const {title, stash} = this.state;
+    const {stash} = this.state;
     return (
         <div>
-          <Paper>
-            <Typography variant='display1' align='center' gutterBottom>Hab ich noch Geld?</Typography>
-            <form onSubmit={this.handleButton}>
-              <TextField name='title' label='ignore me' value={title} onChange={this.handleChange} margin='normal' />
-              <Button type='submit' color='primary' variant='raised'>
-                Create
-              </Button>
-            </form>
-          </Paper>
+          <Add stash={stash}/>
           <MonthsLegend/>
-          <Stash stash={stash}/>
           <Stash stash={stash}/>
         </div>
     )
