@@ -5,7 +5,9 @@ export class Add extends React.Component {
 
   state = {
     value: '',
-    note: ''
+    note: '',
+    valueError: false,
+    noteError: false,
   };
 
   handleAmountChange = (event) => {
@@ -18,6 +20,18 @@ export class Add extends React.Component {
 
   handleButton = e => {
     e.preventDefault();
+    this.resetErrorState();
+    if (Add.isEmpty(this.state.value)) {
+      this.setState({valueError: true});
+    }
+    if(Add.isEmpty(this.state.note)) {
+      this.setState({noteError: true});
+    }
+
+    if(Add.isEmpty(this.state.note) || Add.isEmpty(this.state.note)) {
+      return;
+    }
+
     let stuff = {
       'monthYear': Add.asMonthYearObject(this.props.forMonthYear),
       'value': parseFloat(this.state.value),
@@ -39,13 +53,21 @@ export class Add extends React.Component {
 
   render() {
     return (
-          <form onSubmit={this.handleButton} style={{textAlign: 'center'}}>
-            <TextField label='Wert' name='amount' value={this.state.value} onChange={this.handleAmountChange} margin='normal'/>
-            <br />
-            <TextField label='Grund' name='note' value={this.state.note} onChange={this.handleNoteChange} margin='normal'/>
-            <br />
-            <Button type='submit' color='primary' variant='raised'>Eintragen</Button>
-          </form>
+        <form onSubmit={this.handleButton} style={{textAlign: 'center'}}>
+          <TextField error={this.state.valueError} label='Wert' name='amount' value={this.state.value} onChange={this.handleAmountChange} margin='normal'/>
+          <br/>
+          <TextField error={this.state.noteError} label='Grund' name='note' value={this.state.note} onChange={this.handleNoteChange} margin='normal'/>
+          <br/>
+          <Button type='submit' color='primary' variant='raised'>Eintragen</Button>
+        </form>
     )
+  }
+
+  resetErrorState() {
+    this.setState({valueError: false, noteError: false});
+  }
+
+  static isEmpty(value) {
+    return !value || '' === value;
   }
 }
