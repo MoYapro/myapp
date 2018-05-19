@@ -12,12 +12,12 @@ export class MonthDetails extends React.Component {
 
     console.log('render month details for: ', this.props.monthYear);
     let renderedItems = this.props.stash.filter(stuff => this.props.monthYear === stuff.monthYear.year + '-' + stuff.monthYear.month);
-    console.log(renderedItems);
     return (
         <List>
-          {renderedItems.map((data) => {
+          {renderedItems.map((data, i) => {
                 return (
-                    <ListItem key={data.monthYear}>
+                    <ListItem key={i}>
+                      <ListItemText primary={data.note}/>
                       <ListItemText primary={data.value}/>
                     </ListItem>
                 )
