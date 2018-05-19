@@ -9,7 +9,27 @@ const paperStyle = {
   display: 'inline-block',
 };
 
+const containerStyle = {
+  height: 406,
+  display: 'inline-block',
+};
+
+const detailStyle = {
+  display: 'inline-block',
+  verticalAlign: 'top',
+};
+
 export class Stash extends React.Component {
+
+  state = {
+    detailsForMonth: undefined
+  };
+
+  handleMonthClick = (monthYear) => () => {
+    console.log('select:', monthYear);
+    this.setState({detailsForMonth: monthYear});
+  };
+
   render() {
     let stash = this.props.stash;
     let grouped = _(stash)
@@ -20,18 +40,23 @@ export class Stash extends React.Component {
     }))
     .value();
     return (
-        <Paper style={paperStyle}>
-          <List>
-            {grouped.map((data, index) => {
-                return (
-                <ListItem key={data.monthYear}>
-                  <ListItemText primary={data.value}/>
-                </ListItem>
-                )}
-            )}
-          </List>
-        </Paper>
-
+        <div style={containerStyle}>
+          <Paper style={paperStyle}>
+            <List>
+              {grouped.map((data) => {
+                    return (
+                        <ListItem key={data.monthYear} button onClick={this.handleMonthClick(data.monthYear)}>
+                          <ListItemText primary={data.value}/>
+                        </ListItem>
+                    )
+                  }
+              )}
+            </List>
+          </Paper>
+          <Paper style={detailStyle}>
+            {this.state.detailsForMonth}
+          </Paper>
+        </div>
     )
   }
 }
