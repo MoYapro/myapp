@@ -1,6 +1,6 @@
 import React from 'react'
-import {Button, Paper, TextField, MenuItem} from 'material-ui'
-import SelectField from 'material-ui/SelectField';
+import {Button, Paper, Select, TextField} from 'material-ui'
+import InputLabel from "material-ui/es/Input/InputLabel";
 
 const paperStyle = {
   margin: 20,
@@ -23,7 +23,7 @@ export class Add extends React.Component {
   };
 
   handleMonthChange = (event) => {
-    this.setState({month: event.target.month})
+    this.setState({month: event.target.value})
   };
 
   handleButton = e => {
@@ -42,6 +42,17 @@ export class Add extends React.Component {
     return (
         <Paper style={paperStyle}>
           <form onSubmit={this.handleButton}>
+            <InputLabel htmlFor="age-native-simple">Monat</InputLabel>
+
+            <Select
+                native
+                value={this.state.month}
+                // renderValue={value => months[value]}
+                onChange={this.handleMonthChange}
+            >
+            {months.map((month, index) => <option value={index} label={month}/>)}
+            </Select>
+
             <TextField name='amount' value={this.state.value}
                        onChange={this.handleAmountChange} margin='normal'/>
             <Button type='submit' color='primary' variant='raised'>

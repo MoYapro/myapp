@@ -37,9 +37,9 @@ export default class App extends Component {
       const {stash} = this.state;
       return (
           <div>
-            <Add stash={stash} addMethod={this.add}/>
             <MonthsLegend/>
             <Stash stash={stash}/>
+            <Add stash={stash} addMethod={this.add}/>
           </div>
       )
     }
