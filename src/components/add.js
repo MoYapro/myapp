@@ -54,9 +54,25 @@ export class Add extends React.Component {
   render() {
     return (
         <form onSubmit={this.handleButton} style={{textAlign: 'center'}}>
-          <TextField error={this.state.valueError} label='Wert' name='amount' value={this.state.value} onChange={this.handleAmountChange} margin='normal'/>
+          <TextField
+              label='Wert'
+              value={this.state.value}
+              name='amount'
+              margin='normal'
+              autoComplete='off'
+              onChange={this.handleAmountChange}
+              error={this.state.valueError}
+          />
           <br/>
-          <TextField error={this.state.noteError} label='Grund' name='note' value={this.state.note} onChange={this.handleNoteChange} margin='normal'/>
+          <TextField
+              label='Grund'
+              value={this.state.note}
+              name='note'
+              margin='normal'
+              autoComplete='off'
+              onChange={this.handleNoteChange}
+              error={this.state.noteError}
+          />
           <br/>
           <Button type='submit' color='primary' variant='raised'>Eintragen</Button>
         </form>
