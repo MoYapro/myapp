@@ -2,6 +2,7 @@ import React from 'react'
 import {Paper} from 'material-ui'
 import List, {ListItem, ListItemText} from 'material-ui/List'
 import _ from 'lodash'
+import {MonthDetails} from './monthDetails'
 
 const paperStyle = {
   margin: 20,
@@ -54,7 +55,7 @@ export class Stash extends React.Component {
             </List>
           </Paper>
           <Paper style={detailStyle}>
-            {this.state.detailsForMonth}
+           <MonthDetails monthYear={this.state.detailsForMonth} stash={this.props.stash}/>
           </Paper>
         </div>
     )
