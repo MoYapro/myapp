@@ -10,14 +10,11 @@ const paperStyle = {
   display: 'inline-block',
 };
 
+const monthHeight = 49;
+
 const containerStyle = {
   height: 406,
   display: 'inline-block',
-};
-
-const detailStyle = {
-  display: 'inline-block',
-  verticalAlign: 'top',
 };
 
 export class Stash extends React.Component {
@@ -40,6 +37,12 @@ export class Stash extends React.Component {
       'value': _.sumBy(items, 'value')
     }))
     .value();
+    let detailStyle = {
+      display: 'inline-block',
+      verticalAlign: 'top',
+      marginTop: !this.state.detailsForMonth ? 20 : paperStyle.margin + monthHeight * this.state.detailsForMonth.split('-')[1]
+  }
+    ;
     return (
         <div style={containerStyle}>
           <Paper style={paperStyle}>
