@@ -32,7 +32,7 @@ export class Add extends React.Component {
     console.log('Add stuff to stash: ', stuff);
 
     this.props.addMethod(stuff);
-    this.setState({value: ''});
+    this.setState({value: '', note: ''});
   };
 
   static asMonthYearObject(monthYearString) {
