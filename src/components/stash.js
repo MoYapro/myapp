@@ -55,7 +55,7 @@ export class Stash extends React.Component {
             </List>
           </Paper>
           <Paper style={detailStyle}>
-           <MonthDetails monthYear={this.state.detailsForMonth} stash={this.props.stash}/>
+            <MonthDetails monthYear={this.state.detailsForMonth} stash={this.props.stash} addMethod={this.props.addMethod}/>
           </Paper>
         </div>
     )

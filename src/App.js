@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {MonthsLegend} from './components/monthLegend'
 import {Stash} from './components/stash'
-import {Add} from './components/add'
 
 export default class App extends Component {
   state = {
@@ -38,8 +37,7 @@ export default class App extends Component {
       return (
           <div>
             <MonthsLegend/>
-            <Stash stash={stash}/>
-            <Add stash={stash} addMethod={this.add}/>
+            <Stash stash={stash} addMethod={this.add}/>
           </div>
       )
     }

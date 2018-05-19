@@ -1,29 +1,22 @@
 import React from 'react'
-import {Button, Paper, Select, TextField} from 'material-ui'
+import {Button, Paper, TextField} from 'material-ui'
 
 const paperStyle = {
   margin: 20,
   textAlign: 'center',
   display: 'inline-block',
 };
-
-const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-
 export class Add extends React.Component {
 
   state = {
-    year: 2018,
-    month: 0,
-    value: ''
+    value: '',
+    note: ''
   };
 
   handleAmountChange = (event) => {
     this.setState({value: event.target.value})
   };
 
-  handleMonthChange = (event) => {
-    this.setState({month: event.target.value})
-  };
   handleNoteChange = (event) => {
     this.setState({note: event.target.value})
   };
@@ -31,7 +24,7 @@ export class Add extends React.Component {
   handleButton = e => {
     e.preventDefault();
     let stuff = {
-      'monthYear': {year: this.state.year, month: this.state.month},
+      'monthYear': Add.asMonthYearObject(this.props.forMonthYear),
       'value': parseFloat(this.state.value),
       'note': this.state.note
     };
@@ -42,22 +35,22 @@ export class Add extends React.Component {
     this.setState({value: ''});
   };
 
+  static asMonthYearObject(monthYearString) {
+    return {
+      year: monthYearString.split('-')[0],
+      month: monthYearString.split('-')[1]
+    }
+  }
+
   render() {
     return (
-        <Paper style={paperStyle}>
-          <form onSubmit={this.handleButton}>
-            <Select
-                native
-                value={this.state.month}
-                onChange={this.handleMonthChange}
-            >
-              {months.map((month, index) => <option key={index} value={index} label={month}/>)}
-            </Select>
-            <TextField name='amount' value={this.state.value} onChange={this.handleAmountChange} margin='normal'/>
-            <TextField name='note' value={this.state.note} onChange={this.handleNoteChange} margin='normal'/>
+          <form onSubmit={this.handleButton} style={{textAlign: 'center'}}>
+            <TextField label='Wert' name='amount' value={this.state.value} onChange={this.handleAmountChange} margin='normal'/>
+            <br />
+            <TextField label='Grund' name='note' value={this.state.note} onChange={this.handleNoteChange} margin='normal'/>
+            <br />
             <Button type='submit' color='primary' variant='raised'>Eintragen</Button>
           </form>
-        </Paper>
     )
   }
 }
