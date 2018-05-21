@@ -58,17 +58,16 @@ export class Stash extends React.Component {
                     .filter(item => Stash.isSameMonthYear(item, {year: this.state.year, month: monthIndex})))
                     .groupBy(this.monthGrouping)
                     .map(Stash.mapToSum).value();
-                    if (monthData.length === 0) {
-                      return this.buildEmptyListItem(key);
-                    }
-                    else if (monthData.length === 1) {
+                    console.log('monthData', monthData[0]);
+                    if (this.state.colapsed) {
+                          let displayValue = this.calculateDisplayValue(monthData);
                       return (
                           <ListItem key={key} button onClick={this.handleMonthClick(key)} style={{backgroundColor: key === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
-                            <ListItemText primary={monthData[0].value ? monthData[0].value : '0'}/>
+                            <ListItemText primary={displayValue}/>
                           </ListItem>
                       );
                     }
-                    else if (monthData.length === 2) {
+                    else if (!this.state.colapsed) {
                       let positiveValue = 0;
                       let negativeValue = 0;
                       return (
@@ -90,12 +89,25 @@ export class Stash extends React.Component {
     );
   }
 
+  calculateDisplayValue(monthData) {
+    if (monthData === undefined || monthData.constructor !== Array || monthData[0] === undefined) {
+      return '--';
+    }
+    else if(!monthData[0].value) {
+      return '0';
+    }
+    return monthData[0].value;
+  }
+
   static isSameMonthYear(item, monthYear) {
     return item.monthYear.year === monthYear.year
         && item.monthYear.month === monthYear.month;
   }
 
-  monthGrouping = item => item.monthYear.year + '-' + item.monthYear.month + (this.state.colapsed ? '' : (item.value >= 0 ? '-positive' : '-negative'));
+  monthGrouping = item => {
+    let x = this.state.colapsed ? '' : (item.value >= 0 ? '-positive' : '-negative');
+    return item.monthYear.year + '-' + item.monthYear.month + (x)
+  };
 
   static mapToSum = (items, key) => ({'monthYear': key, 'value': _.sumBy(items, 'value')});
 
