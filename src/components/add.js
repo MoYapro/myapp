@@ -46,8 +46,8 @@ export class Add extends React.Component {
 
   static asMonthYearObject(monthYearString) {
     return {
-      year: monthYearString.split('-')[0],
-      month: monthYearString.split('-')[1]
+      year: parseInt(monthYearString.split('-')[0]),
+      month: parseInt(monthYearString.split('-')[1])
     }
   }
 
