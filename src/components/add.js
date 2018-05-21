@@ -1,5 +1,7 @@
 import React from 'react'
 import {Button, TextField} from 'material-ui'
+import Switch from "material-ui/es/Switch/Switch";
+import FormControlLabel from "material-ui/es/Form/FormControlLabel";
 
 export class Add extends React.Component {
 
@@ -8,6 +10,7 @@ export class Add extends React.Component {
     note: '',
     valueError: false,
     noteError: false,
+    repeated: true
   };
 
   handleAmountChange = (event) => {
@@ -18,17 +21,21 @@ export class Add extends React.Component {
     this.setState({note: event.target.value})
   };
 
+  handleRepeatChange = (event) => {
+    this.setState({repeated: event.target.checked});
+  };
+
   handleButton = e => {
     e.preventDefault();
     this.resetErrorState();
     if (Add.isEmpty(this.state.value)) {
       this.setState({valueError: true});
     }
-    if(Add.isEmpty(this.state.note)) {
+    if (Add.isEmpty(this.state.note)) {
       this.setState({noteError: true});
     }
 
-    if(Add.isEmpty(this.state.note) || Add.isEmpty(this.state.note)) {
+    if (Add.isEmpty(this.state.note) || Add.isEmpty(this.state.note)) {
       return;
     }
 
@@ -54,6 +61,17 @@ export class Add extends React.Component {
   render() {
     return (
         <form onSubmit={this.handleButton} style={{textAlign: 'center'}}>
+          <FormControlLabel
+              label="Wiederholt"
+              control={
+                <Switch color={'primary'}
+                        checked={this.state.repeated}
+                        onChange={this.handleRepeatChange}
+                        value='repeated'
+                />
+              }
+          />
+          <br/>
           <TextField
               label='Wert'
               value={this.state.value}

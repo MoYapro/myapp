@@ -101,14 +101,15 @@ export class Stash extends React.Component {
     return monthData[0].value;
   }
 
-  static isSameMonthYear(item, monthYear) {
-    return item.monthYear.year === monthYear.year
-        && item.monthYear.month === monthYear.month;
-  }
-
   static isBeforeMonthYear(item, monthYear) {
     return item.monthYear.year <= monthYear.year
-        && item.monthYear.month <= monthYear.month;
+        && item.monthYear.month <= monthYear.month
+        &&
+        (
+            item.repeated
+            || item.monthYear.year === monthYear.year
+            && item.monthYear.month === monthYear.month
+        );
   }
 
   monthGrouping = item => {
@@ -131,7 +132,8 @@ export class Stash extends React.Component {
       id: item.id,
       monthYear: monthYear,
       value: item.value,
-      note: item.note
+      note: item.note,
+      repeated: item.repeated
     }
   }
 }
