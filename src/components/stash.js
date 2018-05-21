@@ -54,13 +54,15 @@ export class Stash extends React.Component {
             <List>
               {months.map((monthName, monthIndex) => {
                     let key = this.state.year + '-' + monthIndex;
+                    let currentMonthYear = {year: this.state.year, month: monthIndex};
                     let monthData = _(this.props.stash
-                    .filter(item => Stash.isSameMonthYear(item, {year: this.state.year, month: monthIndex})))
+                    .filter(item => Stash.isBeforeMonthYear(item, currentMonthYear)))
+                    .map(item => Stash.moveToCurrentMonth(item, currentMonthYear))
                     .groupBy(this.monthGrouping)
                     .map(Stash.mapToSum).value();
                     console.log('monthData', monthData);
                     if (this.state.colapsed) {
-                          let displayValue = Stash.calculateDisplayValue(monthData);
+                      let displayValue = Stash.calculateDisplayValue(monthData);
                       return (
                           <ListItem key={key} button onClick={this.handleMonthClick(key)} style={{backgroundColor: key === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
                             <ListItemText primary={displayValue}/>
@@ -93,7 +95,7 @@ export class Stash extends React.Component {
     if (monthData === undefined || monthData.constructor !== Array || monthData[0] === undefined) {
       return '--';
     }
-    else if(!monthData[0].value) {
+    else if (!monthData[0].value) {
       return '0';
     }
     return monthData[0].value;
@@ -102,6 +104,11 @@ export class Stash extends React.Component {
   static isSameMonthYear(item, monthYear) {
     return item.monthYear.year === monthYear.year
         && item.monthYear.month === monthYear.month;
+  }
+
+  static isBeforeMonthYear(item, monthYear) {
+    return item.monthYear.year <= monthYear.year
+        && item.monthYear.month <= monthYear.month;
   }
 
   monthGrouping = item => {
@@ -117,5 +124,14 @@ export class Stash extends React.Component {
       verticalAlign: 'top',
       marginTop: !this.state.detailsForMonth ? 20 : paperStyle.margin + monthHeight * this.state.detailsForMonth.split('-')[1]
     };
+  }
+
+  static moveToCurrentMonth(item, monthYear) {
+    return {
+      id: item.id,
+      monthYear: monthYear,
+      value: item.value,
+      note: item.note
+    }
   }
 }
