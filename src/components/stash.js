@@ -23,7 +23,7 @@ const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'A
 export class Stash extends React.Component {
 
   state = {
-    colapsed: true,
+    colapsed: false,
     detailsForMonth: undefined,
     year: 2018
   };
@@ -53,9 +53,17 @@ export class Stash extends React.Component {
     }
   }
 
+  static isSameMonthYear(item, monthYear) {
+    return item.monthYear.year === monthYear.year
+        && item.monthYear.month === monthYear.month;
+  }
+
+  static monthGrouping(item) {
+    return item.monthYear.year + '-' + item.monthYear.month;
+  }
+
   renderColapsed() {
     let detailStyle = this.getDetailStyle();
-    let grouped = this.getGroupedData(this.props.stash);
     return (
         <div style={containerStyle}>
           <Paper style={paperStyle}>
@@ -63,7 +71,13 @@ export class Stash extends React.Component {
             <List>
               {months.map((monthName, monthIndex) => {
                     let key = this.state.year + '-' + monthIndex;
-                    let monthData = grouped.filter(item => item.monthYear === key);
+                    let monthData = _(this.props.stash
+                    .filter(item => Stash.isSameMonthYear(item, {year: this.state.year, month: monthIndex})))
+                    .groupBy(Stash.monthGrouping)
+                    .map((items, key) => ({
+                      'monthYear': key,
+                      'value': _.sumBy(items, 'value')
+                    })).value();
                     if (monthData.length !== 1) {
                       return this.buildEmptyListItem(key);
                     }
