@@ -58,9 +58,9 @@ export class Stash extends React.Component {
                     .filter(item => Stash.isSameMonthYear(item, {year: this.state.year, month: monthIndex})))
                     .groupBy(this.monthGrouping)
                     .map(Stash.mapToSum).value();
-                    console.log('monthData', monthData[0]);
+                    console.log('monthData', monthData);
                     if (this.state.colapsed) {
-                          let displayValue = this.calculateDisplayValue(monthData);
+                          let displayValue = Stash.calculateDisplayValue(monthData);
                       return (
                           <ListItem key={key} button onClick={this.handleMonthClick(key)} style={{backgroundColor: key === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
                             <ListItemText primary={displayValue}/>
@@ -68,8 +68,8 @@ export class Stash extends React.Component {
                       );
                     }
                     else if (!this.state.colapsed) {
-                      let positiveValue = 0;
-                      let negativeValue = 0;
+                      let positiveValue = Stash.calculateDisplayValue(monthData.filter(monthData => monthData.monthYear.includes('positive')));
+                      let negativeValue = Stash.calculateDisplayValue(monthData.filter(monthData => monthData.monthYear.includes('negative')));
                       return (
                           <ListItem key={key} button onClick={this.handleMonthClick(key)} style={{backgroundColor: key === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
                             <ListItemText primary={positiveValue} style={{width: 50}}/>
@@ -89,7 +89,7 @@ export class Stash extends React.Component {
     );
   }
 
-  calculateDisplayValue(monthData) {
+  static calculateDisplayValue(monthData) {
     if (monthData === undefined || monthData.constructor !== Array || monthData[0] === undefined) {
       return '--';
     }
