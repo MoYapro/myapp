@@ -35,15 +35,7 @@ export class Stash extends React.Component {
 
   buildEmptyListItem = (monthYear) => {
     return (
-        <ListItem key={monthYear} button onClick={this.handleMonthClick(monthYear)}>
-          <ListItemText primary='---'/>
-        </ListItem>
-    )
-  };
-  buildEmptyListItemDouble = (monthYear) => {
-    return (
-        <ListItem key={monthYear} button onClick={this.handleMonthClick(monthYear)}>
-          <ListItemText primary='---'/>
+        <ListItem key={monthYear} button onClick={this.handleMonthClick(monthYear)} style={{backgroundColor: monthYear === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
           <ListItemText primary='---'/>
         </ListItem>
     )
@@ -76,7 +68,8 @@ export class Stash extends React.Component {
                       return this.buildEmptyListItem(key);
                     }
                     return (
-                        <ListItem key={monthData[0].monthYear} button onClick={this.handleMonthClick(monthData[0].monthYear)}>
+                        <ListItem key={monthData[0].monthYear} button onClick={this.handleMonthClick(monthData[0].monthYear)}
+                                  style={{backgroundColor: key === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
                           <ListItemText primary={monthData[0].value ? monthData[0].value : '0'}/>
                         </ListItem>
                     );
@@ -105,11 +98,11 @@ export class Stash extends React.Component {
               {months.map((month, index) => {
                     let key = this.state.year + '-' + index;
                     let data = [];
-                    data[0] = grouped.filter(item => item.monthYear === key + '-positive' )[0];
+                    data[0] = grouped.filter(item => item.monthYear === key + '-positive')[0];
                     data[1] = grouped.filter(item => item.monthYear === key + '-negative')[0];
                     console.log('data', data);
                     return (
-                        <ListItem key={key} button onClick={this.handleMonthClick(key)}>
+                        <ListItem key={key} button onClick={this.handleMonthClick(key)} style={{backgroundColor: key === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
                           <ListItemText primary={data[0] && data[0].value ? data[0].value : '0'} style={{width: 50}}/>
                           <ListItemText primary={data[1] && data[1].value ? data[1].value : '0'}/>
                         </ListItem>
