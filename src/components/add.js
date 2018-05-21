@@ -44,17 +44,14 @@ export class Add extends React.Component {
       'value': parseFloat(this.state.value),
       'note': this.state.note
     };
-
-    console.log('Add stuff to stash: ', stuff);
-
     this.props.addMethod(stuff);
     this.setState({value: '', note: ''});
   };
 
   static asMonthYearObject(monthYearString) {
     return {
-      year: parseInt(monthYearString.split('-')[0]),
-      month: parseInt(monthYearString.split('-')[1])
+      year: parseInt(monthYearString.split('-')[0], 10),
+      month: parseInt(monthYearString.split('-')[1], 10)
     }
   }
 

@@ -29,7 +29,6 @@ export class Stash extends React.Component {
   };
 
   handleMonthClick = (monthYear) => () => {
-    console.log('select:', monthYear);
     this.setState({detailsForMonth: monthYear});
   };
 
@@ -60,7 +59,6 @@ export class Stash extends React.Component {
                     .map(item => Stash.moveToCurrentMonth(item, currentMonthYear))
                     .groupBy(this.monthGrouping)
                     .map(Stash.mapToSum).value();
-                    console.log('monthData', monthData);
                     if (this.state.colapsed) {
                       let displayValue = Stash.calculateDisplayValue(monthData);
                       return (
@@ -104,12 +102,9 @@ export class Stash extends React.Component {
   static isBeforeMonthYear(item, monthYear) {
     return item.monthYear.year <= monthYear.year
         && item.monthYear.month <= monthYear.month
-        &&
-        (
-            item.repeated
-            || item.monthYear.year === monthYear.year
-            && item.monthYear.month === monthYear.month
-        );
+        && item.repeated === true
+        || item.monthYear.year === monthYear.year
+        && item.monthYear.month === monthYear.month;
   }
 
   monthGrouping = item => {
@@ -128,12 +123,16 @@ export class Stash extends React.Component {
   }
 
   static moveToCurrentMonth(item, monthYear) {
+    console.log('current month', item.monthYear);
+
+    let fromThisMonth = item.monthYear.year === monthYear.year && item.monthYear.month === monthYear.month;
     return {
       id: item.id,
       monthYear: monthYear,
       value: item.value,
       note: item.note,
-      repeated: item.repeated
+      repeated: item.repeated,
+      fromThisMonth: fromThisMonth
     }
   }
 }

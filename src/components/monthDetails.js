@@ -5,6 +5,7 @@ import ListItemText from "material-ui/es/List/ListItemText";
 import {Add} from './add'
 import ListItemSecondaryAction from "material-ui/es/List/ListItemSecondaryAction";
 import IconButton from "material-ui/es/IconButton/IconButton";
+import {Stash as Stuff} from "./stash";
 
 export class MonthDetails extends React.Component {
 
@@ -17,14 +18,17 @@ export class MonthDetails extends React.Component {
       return '';
     }
 
-    console.log('render month details for: ', this.props.monthYear);
-    let renderedItems = this.props.stash.filter(stuff => this.props.monthYear === stuff.monthYear.year + '-' + stuff.monthYear.month);
+    let currentMonth = Add.asMonthYearObject(this.props.monthYear);
+    let renderedItems = this.props.stash
+    .filter(item => Stuff.isBeforeMonthYear(item, currentMonth))
+    .map(item => Stuff.moveToCurrentMonth(item, currentMonth));
     return (
         <div>
           <List>
             {renderedItems.map((data, i) => {
                   return (
                       <ListItem key={i}>
+                        <ListItemText primary={data.fromThisMonth ? '' : '∞'} style={{width: 10}}/>
                         <ListItemText primary={data.note ? data.note : ''} style={{width: 150}}/>
                         <ListItemText primary={data.value ? data.value : '0'} style={{width: 50, textAlign: 'right'}}/>
                         <ListItemSecondaryAction onClick={this.handleDelete(data.id)}>
