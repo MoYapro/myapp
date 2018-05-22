@@ -9,6 +9,7 @@ const paperStyle = {
   margin: 20,
   textAlign: 'center',
   display: 'inline-block',
+  verticalAlign: 'top'
 };
 
 const monthHeight = 49;
@@ -69,14 +70,6 @@ export class Stash extends React.Component {
 
   static mapToSum = (items, key) => ({'monthYear': key, 'value': _.sumBy(items, 'value')});
 
-  getDetailStyle() {
-    return {
-      display: 'inline-block',
-      verticalAlign: 'top',
-      marginTop: !this.state.detailsForMonth ? 20 : paperStyle.margin + monthHeight * this.state.detailsForMonth.split('-')[1]
-    };
-  }
-
   static moveToCurrentMonth(item, monthYear) {
     let fromThisMonth = item.monthYear.year === monthYear.year && item.monthYear.month === monthYear.month;
     return {
@@ -90,7 +83,6 @@ export class Stash extends React.Component {
   }
 
   render() {
-    let detailStyle = this.getDetailStyle();
     return (
         <div style={containerStyle}>
           <Paper style={paperStyle}>
@@ -127,7 +119,7 @@ export class Stash extends React.Component {
               )}
             </List>
           </Paper>
-          <Paper style={detailStyle}>
+          <Paper style={paperStyle}>
             <MonthDetails monthYear={this.state.detailsForMonth} stash={this.props.stash} addMethod={this.props.addMethod} deleteMethod={this.props.deleteMethod}/>
           </Paper>
         </div>

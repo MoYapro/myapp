@@ -6,6 +6,7 @@ const paperStyle = {
   margin: 20,
   textAlign: 'center',
   display: 'inline-block',
+  verticalAlign: 'top'
 };
 
 
