@@ -7,8 +7,7 @@ import ListItemSecondaryAction from "material-ui/es/List/ListItemSecondaryAction
 import IconButton from "material-ui/es/IconButton/IconButton";
 import Typography from "material-ui/es/Typography/Typography";
 import {Fn} from "../Fn";
-
-const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+import {Constants} from "../Constants";
 
 export class MonthDetails extends React.Component {
 
@@ -27,7 +26,7 @@ export class MonthDetails extends React.Component {
     .sort((item1, item2) => item1.monthYear.day - item2.monthYear.day);
     return (
         <div>
-          <Typography variant="title" gutterBottom>{months[currentMonth.month]}</Typography>
+          <Typography variant="title" gutterBottom>{Constants.months[currentMonth.month]}</Typography>
           <List>
             {renderedItems.map((data, i) => {
                   return (

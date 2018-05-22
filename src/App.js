@@ -48,7 +48,7 @@ export default class App extends Component {
   };
 
   render() {
-    const {stash} = this.state;
+    let {stash} = this.state;
     return (
         <div style={{width: 5000}}>
           <MonthsLegend year={this.state.year}/>

@@ -5,20 +5,12 @@ import _ from 'lodash'
 import {Fn} from "../Fn";
 import Button from "material-ui/es/Button/Button";
 import {MonthDetails} from "./monthDetails";
-
-const paperStyle = {
-  margin: 20,
-  textAlign: 'center',
-  display: 'inline-block',
-  verticalAlign: 'top'
-};
+import {Constants} from "../Constants";
 
 const containerStyle = {
   height: 406,
   display: 'inline-block',
 };
-
-const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
 export class Stash extends React.Component {
 
@@ -44,10 +36,10 @@ export class Stash extends React.Component {
   render() {
     return (
         <div style={containerStyle}>
-          <Paper style={paperStyle}>
+          <Paper style={Constants.paperStyle}>
             <Button onClick={this.changeColapsed} color='primary' variant='raised' size={'small'}>{this.state.colapsed ? '±' : '+|-'}</Button>
             <List>
-              {months.map((monthName, monthIndex) => {
+              {Constants.months.map((monthName, monthIndex) => {
                     let key = this.state.year + '-' + monthIndex;
                     let currentMonthYear = {year: this.state.year, month: monthIndex};
                     let monthData = _(this.props.stash
@@ -78,7 +70,7 @@ export class Stash extends React.Component {
               )}
             </List>
           </Paper>
-          <Paper style={paperStyle}>
+          <Paper style={Constants.paperStyle}>
             <MonthDetails monthYear={this.state.detailsForMonth} stash={this.props.stash} addMethod={this.props.addMethod} deleteMethod={this.props.deleteMethod}/>
           </Paper>
         </div>
