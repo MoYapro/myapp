@@ -15,12 +15,10 @@ export class Stash extends React.Component {
 
   state = {
     colapsed: false,
-    detailsForMonth: undefined,
-    year: 2018
   };
 
   handleMonthClick = (monthYear) => () => {
-    this.setState({detailsForMonth: monthYear});
+    this.props.updateSelectedMonth(monthYear);
   };
 
   changeColapsed = () => {
@@ -34,13 +32,13 @@ export class Stash extends React.Component {
             <Button onClick={this.changeColapsed} color='primary' variant='raised' size={'small'}>{this.state.colapsed ? '±' : '+|-'}</Button>
             <List>
               {Constants.months.map((monthName, monthIndex) => {
-                    let key = this.state.year + '-' + monthIndex;
-                    let currentMonthYear = {year: this.state.year, month: monthIndex};
+                    let key = this.props.selectedYear + '-' + monthIndex;
+                    let currentMonthYear = {year: this.props.selectedYear, month: monthIndex};
                     let monthData = Fn.getGroupedItemsForMonth(this.props.stash, currentMonthYear, this.state.colapsed);
                     if (this.state.colapsed) {
                       let displayValue = Fn.calculateDisplayValue(monthData);
                       return (
-                          <ListItem key={key} button onClick={this.handleMonthClick(key)} style={{backgroundColor: key === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
+                          <ListItem key={key} button onClick={this.handleMonthClick(monthIndex)} style={{backgroundColor: monthIndex === this.props.selectedMonth ? 'lightskyblue' : ''}}>
                             <ListItemText primary={displayValue}/>
                           </ListItem>
                       );
@@ -49,7 +47,7 @@ export class Stash extends React.Component {
                       let positiveValue = Fn.calculateDisplayValue(monthData.filter(monthData => monthData.monthYear.includes('positive')));
                       let negativeValue = Fn.calculateDisplayValue(monthData.filter(monthData => monthData.monthYear.includes('negative')));
                       return (
-                          <ListItem key={key} button onClick={this.handleMonthClick(key)} style={{backgroundColor: key === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
+                          <ListItem key={key} button onClick={this.handleMonthClick(monthIndex)} style={{backgroundColor: monthIndex === this.props.selectedMonth ? 'lightskyblue' : ''}}>
                             <ListItemText primary={positiveValue} style={{width: 50}}/>
                             <ListItemText primary={negativeValue} style={{width: 50}}/>
                           </ListItem>
@@ -61,7 +59,7 @@ export class Stash extends React.Component {
             </List>
           </Paper>
           <Paper style={Constants.paperStyle}>
-            <MonthDetails monthYear={this.state.detailsForMonth}
+            <MonthDetails monthYear={{year: this.props.selectedYear, month: this.props.selectedMonth}}
                           settings={this.props.settings}
                           stash={this.props.stash}
                           addMethod={this.props.addMethod}

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {MonthsLegend} from './components/monthLegend'
 import {Stash} from './components/stash'
 import {Settings} from "./components/settings";
+import {Constants} from "./Constants";
 
 export default class App extends Component {
   state = {
@@ -29,10 +30,12 @@ export default class App extends Component {
       {id: 21, monthYear: {year: 2018, month: 10, day: 30}, value: -5, repeated: false, note: 'Hier haben wir einfach mal so Geld zum Heizen gebraucht'},
       {id: 22, monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'Bananen'},
     ],
-    year: 2018,
+    selectedYear: 2018,
+    selectedMonth: undefined,
     settings: {
       repeatedColapsed: true
-    }
+    },
+
   };
 
   add = (stuff) => {
@@ -46,24 +49,53 @@ export default class App extends Component {
   };
 
   delete = (id) => {
-    this.setState(({item}) => ({
+    this.setState(() => ({
       stash: this.state.stash.filter(stuff => stuff.id !== id)
     }))
   };
 
-  updateSettings = (settings) => this.setState(({item}) => ({settings: settings}));
+  updateSettings = (settings) => this.setState(() => ({settings: settings}));
+
+  handleKeyPress= (event) => {
+    if (Constants.upArrowCode === event.keyCode) {
+      if (this.state.selectedMonth === undefined || this.state.selectedMonth === 0) {
+        return;
+      }
+      this.updateSelectedMonth(this.state.selectedMonth-1);
+    } else if (Constants.downArrowCode === event.keyCode) {
+      if (this.state.selectedMonth === undefined || this.state.selectedMonth === 11) {
+        return;
+      }
+      this.updateSelectedMonth(this.state.selectedMonth+1)
+    }
+  }
+
+  updateSelectedMonth = (month) => {
+    if (month === undefined) {
+      return;
+    }
+    this.setState(() => ({
+      selectedMonth: month
+    }));
+  };
 
   render() {
     let {stash} = this.state;
     return (
         <div>
-          <div key='content' style={{width: 5000}}>
+          <div key='content' style={{width: 5000}} onKeyUp={this.handleKeyPress}>
             <MonthsLegend year={this.state.year}/>
-            <Stash stash={stash} addMethod={this.add} deleteMethod={this.delete} settings={this.state.settings}/>
+            <Stash stash={stash}
+                   selectedMonth={this.state.selectedMonth}
+                   selectedYear={this.state.selectedYear}
+                   settings={this.state.settings}
+                   addMethod={this.add}
+                   deleteMethod={this.delete}
+                   updateSelectedMonth={this.updateSelectedMonth}
+            />
           </div>
           <Settings updateSettings={this.updateSettings} settings={this.state.settings}/>
         </div>
     )
   }
-
 }

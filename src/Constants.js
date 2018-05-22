@@ -8,4 +8,7 @@ export class Constants {
     verticalAlign: 'top'
   };
 
+  static upArrowCode=38;
+  static downArrowCode=40;
+
 }

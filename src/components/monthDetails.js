@@ -16,10 +16,10 @@ export class MonthDetails extends React.Component {
   };
 
   render() {
-    if (!this.props.monthYear || !this.props.stash) {
+    let currentMonthYear = this.props.monthYear;
+    if (!this.props.stash || !this.props.monthYear || this.props.monthYear.year === undefined || this.props.monthYear.month === undefined) {
       return '';
     }
-    let currentMonthYear = Add.asMonthYearObject(this.props.monthYear);
     let renderedItems = this.props.settings.repeatedColapsed ? this.getColapsed(currentMonthYear) : Fn.selectItemsForMonth(this.props.stash, currentMonthYear);
     return (
         <div>
