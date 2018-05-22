@@ -28,7 +28,7 @@ export default class App extends Component {
       {id: 21, monthYear: {year: 2018, month: 10, day: 30}, value: -5, repeated: false, note: 'Hier haben wir einfach mal so Geld zum Heizen gebraucht'},
       {id: 22, monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'Bananen'},
     ],
-    value: ''
+    year: 2018
   };
 
   add = (stuff) => {
@@ -51,7 +51,7 @@ export default class App extends Component {
     const {stash} = this.state;
     return (
         <div style={{width: 5000}}>
-          <MonthsLegend/>
+          <MonthsLegend year={this.state.year}/>
           <Stash stash={stash} addMethod={this.add} deleteMethod={this.delete}/>
         </div>
     )

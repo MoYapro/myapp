@@ -31,14 +31,6 @@ export class Stash extends React.Component {
     this.setState({detailsForMonth: monthYear});
   };
 
-  buildEmptyListItem = (monthYear) => {
-    return (
-        <ListItem key={monthYear} button onClick={this.handleMonthClick(monthYear)} style={{backgroundColor: monthYear === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
-          <ListItemText primary='---'/>
-        </ListItem>
-    )
-  };
-
   changeColapsed = () => {
     this.setState({colapsed: !this.state.colapsed});
   };
@@ -84,7 +76,7 @@ export class Stash extends React.Component {
     return (
         <div style={containerStyle}>
           <Paper style={paperStyle}>
-            <Button onClick={this.changeColapsed} color='primary' variant='raised'>{this.state.colapsed ? '±' : '+|-'}</Button>
+            <Button onClick={this.changeColapsed} color='primary' variant='raised' size={'small'}>{this.state.colapsed ? '±' : '+|-'}</Button>
             <List>
               {months.map((monthName, monthIndex) => {
                     let key = this.state.year + '-' + monthIndex;
