@@ -21,7 +21,8 @@ export class MonthDetails extends React.Component {
     let currentMonth = Add.asMonthYearObject(this.props.monthYear);
     let renderedItems = this.props.stash
     .filter(item => Stuff.isBeforeMonthYear(item, currentMonth))
-    .map(item => Stuff.moveToCurrentMonth(item, currentMonth));
+    .map(item => Stuff.moveToCurrentMonth(item, currentMonth))
+    .sort((item1, item2) => item1.monthYear.day - item2.monthYear.day);
     console.log(renderedItems);
     return (
         <div>
