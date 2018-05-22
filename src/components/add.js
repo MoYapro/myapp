@@ -42,8 +42,10 @@ export class Add extends React.Component {
     let stuff = {
       'monthYear': Add.asMonthYearObject(this.props.forMonthYear),
       'value': parseFloat(this.state.value),
-      'note': this.state.note
+      'note': this.state.note,
+      'repeated': this.state.repeated
     };
+    stuff.monthYear.day = 1;
     this.props.addMethod(stuff);
     this.setState({value: '', note: ''});
   };

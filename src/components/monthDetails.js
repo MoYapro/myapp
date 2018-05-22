@@ -19,14 +19,13 @@ export class MonthDetails extends React.Component {
     if (!this.props.monthYear || !this.props.stash) {
       return '';
     }
-    let currentMonth = Add.asMonthYearObject(this.props.monthYear);
-    let renderedItems = this.props.stash
-    .filter(item => Fn.isBeforeMonthYear(item, currentMonth))
-    .map(item => Fn.moveToCurrentMonth(item, currentMonth))
-    .sort((item1, item2) => item1.monthYear.day - item2.monthYear.day);
+    let currentMonthYear = Add.asMonthYearObject(this.props.monthYear);
+    let sums = Fn.getGroupedItemsForMonth(this.props.stash, currentMonthYear, false).map(item => Fn.enrichWithDetails(item, currentMonthYear));
+    var renderedItems = Fn.selectItemsForMonth(this.props.stash, currentMonthYear).filter(item => Fn.isInMonthYear(item, currentMonthYear)).filter(Fn.isNotRepeated);
+    renderedItems = sums.concat(renderedItems);
     return (
         <div>
-          <Typography variant="title" gutterBottom>{Constants.months[currentMonth.month]}</Typography>
+          <Typography variant="title" gutterBottom>{Constants.months[currentMonthYear.month]}</Typography>
           <List>
             {renderedItems.map((data, i) => {
                   return (

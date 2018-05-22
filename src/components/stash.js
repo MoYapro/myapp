@@ -1,7 +1,6 @@
 import React from 'react'
 import {Paper} from 'material-ui'
 import List, {ListItem, ListItemText} from 'material-ui/List'
-import _ from 'lodash'
 import {Fn} from "../Fn";
 import Button from "material-ui/es/Button/Button";
 import {MonthDetails} from "./monthDetails";
@@ -28,11 +27,6 @@ export class Stash extends React.Component {
     this.setState({colapsed: !this.state.colapsed});
   };
 
-  monthGrouping = item => {
-    let x = this.state.colapsed ? '' : (item.value >= 0 ? '-positive' : '-negative');
-    return item.monthYear.year + '-' + item.monthYear.month + (x)
-  };
-
   render() {
     return (
         <div style={containerStyle}>
@@ -42,11 +36,7 @@ export class Stash extends React.Component {
               {Constants.months.map((monthName, monthIndex) => {
                     let key = this.state.year + '-' + monthIndex;
                     let currentMonthYear = {year: this.state.year, month: monthIndex};
-                    let monthData = _(this.props.stash
-                    .filter(item => Fn.isBeforeMonthYear(item, currentMonthYear)))
-                    .map(item => Fn.moveToCurrentMonth(item, currentMonthYear))
-                    .groupBy(this.monthGrouping)
-                    .map(Fn.mapToSum).value();
+                    let monthData = Fn.getGroupedItemsForMonth(this.props.stash, currentMonthYear, this.state.colapsed);
                     if (this.state.colapsed) {
                       let displayValue = Fn.calculateDisplayValue(monthData);
                       return (
