@@ -74,7 +74,7 @@ export class Stash extends React.Component {
     let fromThisMonth = item.monthYear.year === monthYear.year && item.monthYear.month === monthYear.month;
     return {
       id: item.id,
-      monthYear: monthYear,
+      monthYear: {year: monthYear.year, month: monthYear.month, day: item.monthYear.day},
       value: item.value,
       note: item.note,
       repeated: item.repeated,

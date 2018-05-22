@@ -22,12 +22,14 @@ export class MonthDetails extends React.Component {
     let renderedItems = this.props.stash
     .filter(item => Stuff.isBeforeMonthYear(item, currentMonth))
     .map(item => Stuff.moveToCurrentMonth(item, currentMonth));
+    console.log(renderedItems);
     return (
         <div>
           <List>
             {renderedItems.map((data, i) => {
                   return (
                       <ListItem key={i}>
+                        <ListItemText primary={data.monthYear.day} style={{width: 10}}/>
                         <ListItemText primary={data.fromThisMonth ? '' : '∞'} style={{width: 10}}/>
                         <ListItemText primary={data.note ? data.note : ''} style={{width: 150}}/>
                         <ListItemText primary={data.value ? data.value : '0'} style={{width: 50, textAlign: 'right'}}/>
