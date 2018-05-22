@@ -23,7 +23,6 @@ export class MonthDetails extends React.Component {
     .filter(item => Stuff.isBeforeMonthYear(item, currentMonth))
     .map(item => Stuff.moveToCurrentMonth(item, currentMonth))
     .sort((item1, item2) => item1.monthYear.day - item2.monthYear.day);
-    console.log(renderedItems);
     return (
         <div>
           <List>
