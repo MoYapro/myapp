@@ -52,7 +52,7 @@ export default class App extends Component {
   render() {
     const {stash} = this.state;
     return (
-        <div>
+        <div style={{width: 5000}}>
           <MonthsLegend/>
           <Stash stash={stash} addMethod={this.add} deleteMethod={this.delete}/>
         </div>
