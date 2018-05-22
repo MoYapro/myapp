@@ -2,8 +2,9 @@ import React from 'react'
 import {Paper} from 'material-ui'
 import List, {ListItem, ListItemText} from 'material-ui/List'
 import _ from 'lodash'
-import {MonthDetails} from './monthDetails'
+import {Fn} from "../Fn";
 import Button from "material-ui/es/Button/Button";
+import {MonthDetails} from "./monthDetails";
 
 const paperStyle = {
   margin: 20,
@@ -35,42 +36,10 @@ export class Stash extends React.Component {
     this.setState({colapsed: !this.state.colapsed});
   };
 
-  static calculateDisplayValue(monthData) {
-    if (monthData === undefined || monthData.constructor !== Array || monthData[0] === undefined) {
-      return '--';
-    }
-    else if (!monthData[0].value) {
-      return '0';
-    }
-    return monthData[0].value;
-  }
-
-  static isBeforeMonthYear(item, monthYear) {
-    return item.monthYear.year <= monthYear.year
-        && item.monthYear.month <= monthYear.month
-        && item.repeated === true
-        || item.monthYear.year === monthYear.year
-        && item.monthYear.month === monthYear.month;
-  }
-
   monthGrouping = item => {
     let x = this.state.colapsed ? '' : (item.value >= 0 ? '-positive' : '-negative');
     return item.monthYear.year + '-' + item.monthYear.month + (x)
   };
-
-  static mapToSum = (items, key) => ({'monthYear': key, 'value': _.sumBy(items, 'value')});
-
-  static moveToCurrentMonth(item, monthYear) {
-    let fromThisMonth = item.monthYear.year === monthYear.year && item.monthYear.month === monthYear.month;
-    return {
-      id: item.id,
-      monthYear: {year: monthYear.year, month: monthYear.month, day: item.monthYear.day},
-      value: item.value,
-      note: item.note,
-      repeated: item.repeated,
-      fromThisMonth: fromThisMonth
-    }
-  }
 
   render() {
     return (
@@ -82,12 +51,12 @@ export class Stash extends React.Component {
                     let key = this.state.year + '-' + monthIndex;
                     let currentMonthYear = {year: this.state.year, month: monthIndex};
                     let monthData = _(this.props.stash
-                    .filter(item => Stash.isBeforeMonthYear(item, currentMonthYear)))
-                    .map(item => Stash.moveToCurrentMonth(item, currentMonthYear))
+                    .filter(item => Fn.isBeforeMonthYear(item, currentMonthYear)))
+                    .map(item => Fn.moveToCurrentMonth(item, currentMonthYear))
                     .groupBy(this.monthGrouping)
-                    .map(Stash.mapToSum).value();
+                    .map(Fn.mapToSum).value();
                     if (this.state.colapsed) {
-                      let displayValue = Stash.calculateDisplayValue(monthData);
+                      let displayValue = Fn.calculateDisplayValue(monthData);
                       return (
                           <ListItem key={key} button onClick={this.handleMonthClick(key)} style={{backgroundColor: key === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
                             <ListItemText primary={displayValue}/>
@@ -95,8 +64,8 @@ export class Stash extends React.Component {
                       );
                     }
                     else if (!this.state.colapsed) {
-                      let positiveValue = Stash.calculateDisplayValue(monthData.filter(monthData => monthData.monthYear.includes('positive')));
-                      let negativeValue = Stash.calculateDisplayValue(monthData.filter(monthData => monthData.monthYear.includes('negative')));
+                      let positiveValue = Fn.calculateDisplayValue(monthData.filter(monthData => monthData.monthYear.includes('positive')));
+                      let negativeValue = Fn.calculateDisplayValue(monthData.filter(monthData => monthData.monthYear.includes('negative')));
                       return (
                           <ListItem key={key} button onClick={this.handleMonthClick(key)} style={{backgroundColor: key === this.state.detailsForMonth ? 'lightskyblue' : ''}}>
                             <ListItemText primary={positiveValue} style={{width: 50}}/>
@@ -115,5 +84,4 @@ export class Stash extends React.Component {
         </div>
     );
   }
-
 }

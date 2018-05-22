@@ -5,8 +5,8 @@ import ListItemText from "material-ui/es/List/ListItemText";
 import {Add} from './add'
 import ListItemSecondaryAction from "material-ui/es/List/ListItemSecondaryAction";
 import IconButton from "material-ui/es/IconButton/IconButton";
-import {Stash as Stuff} from "./stash";
 import Typography from "material-ui/es/Typography/Typography";
+import {Fn} from "../Fn";
 
 const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
@@ -20,11 +20,10 @@ export class MonthDetails extends React.Component {
     if (!this.props.monthYear || !this.props.stash) {
       return '';
     }
-
     let currentMonth = Add.asMonthYearObject(this.props.monthYear);
     let renderedItems = this.props.stash
-    .filter(item => Stuff.isBeforeMonthYear(item, currentMonth))
-    .map(item => Stuff.moveToCurrentMonth(item, currentMonth))
+    .filter(item => Fn.isBeforeMonthYear(item, currentMonth))
+    .map(item => Fn.moveToCurrentMonth(item, currentMonth))
     .sort((item1, item2) => item1.monthYear.day - item2.monthYear.day);
     return (
         <div>
