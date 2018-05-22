@@ -20,9 +20,7 @@ export class MonthDetails extends React.Component {
       return '';
     }
     let currentMonthYear = Add.asMonthYearObject(this.props.monthYear);
-    let sums = Fn.getGroupedItemsForMonth(this.props.stash, currentMonthYear, false).map(item => Fn.enrichWithDetails(item, currentMonthYear));
-    var renderedItems = Fn.selectItemsForMonth(this.props.stash, currentMonthYear).filter(item => Fn.isInMonthYear(item, currentMonthYear)).filter(Fn.isNotRepeated);
-    renderedItems = sums.concat(renderedItems);
+    let renderedItems = this.props.settings.repeatedColapsed ? this.getColapsed(currentMonthYear) : Fn.selectItemsForMonth(this.props.stash, currentMonthYear);
     return (
         <div>
           <Typography variant="title" gutterBottom>{Constants.months[currentMonthYear.month]}</Typography>
@@ -45,5 +43,11 @@ export class MonthDetails extends React.Component {
           <Add forMonthYear={this.props.monthYear} addMethod={this.props.addMethod}/>
         </div>
     )
+  }
+
+  getColapsed(currentMonthYear) {
+    let sums = Fn.getGroupedItemsForMonth(this.props.stash, currentMonthYear, false).map(item => Fn.enrichWithDetails(item, currentMonthYear));
+    let detailedItems = Fn.selectItemsForMonth(this.props.stash, currentMonthYear).filter(item => Fn.isInMonthYear(item, currentMonthYear)).filter(Fn.isNotRepeated);
+    return sums.concat(detailedItems);
   }
 }
