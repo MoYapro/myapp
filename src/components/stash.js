@@ -12,8 +12,6 @@ const paperStyle = {
   verticalAlign: 'top'
 };
 
-const monthHeight = 49;
-
 const containerStyle = {
   height: 406,
   display: 'inline-block',
