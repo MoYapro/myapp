@@ -29,7 +29,7 @@ export class MonthDetails extends React.Component {
             {renderedItems.map((data, i) => {
                   return (
                       <ListItem key={i}>
-                        <ListItemText primary={data.monthYear.day} style={{width: 10}}/>
+                        <ListItemText primary={(data.monthYear.day < 10 ? '0' : '') + data.monthYear.day} style={{width: 10, textAlign: 'right'}}/>
                         <ListItemText primary={data.fromThisMonth ? '' : '∞'} style={{width: 10}}/>
                         <ListItemText primary={data.note ? data.note : ''} style={{width: 150}}/>
                         <ListItemText primary={data.value ? data.value : '0'} style={{width: 50, textAlign: 'right'}}/>
