@@ -32,7 +32,6 @@ export default class App extends Component {
   };
 
   add = (stuff) => {
-    console.log('add', stuff);
     stuff.id = this.state.stash.length + 1;
     this.setState(({stash}) => ({
       stash: [
@@ -43,7 +42,6 @@ export default class App extends Component {
   };
 
   delete = (id) => {
-    console.log('delete item with', id);
     this.setState(({item}) => ({
       stash: this.state.stash.filter(stuff => stuff.id !== id)
     }))

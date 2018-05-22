@@ -44,6 +44,51 @@ export class Stash extends React.Component {
     this.setState({colapsed: !this.state.colapsed});
   };
 
+  static calculateDisplayValue(monthData) {
+    if (monthData === undefined || monthData.constructor !== Array || monthData[0] === undefined) {
+      return '--';
+    }
+    else if (!monthData[0].value) {
+      return '0';
+    }
+    return monthData[0].value;
+  }
+
+  static isBeforeMonthYear(item, monthYear) {
+    return item.monthYear.year <= monthYear.year
+        && item.monthYear.month <= monthYear.month
+        && item.repeated === true
+        || item.monthYear.year === monthYear.year
+        && item.monthYear.month === monthYear.month;
+  }
+
+  monthGrouping = item => {
+    let x = this.state.colapsed ? '' : (item.value >= 0 ? '-positive' : '-negative');
+    return item.monthYear.year + '-' + item.monthYear.month + (x)
+  };
+
+  static mapToSum = (items, key) => ({'monthYear': key, 'value': _.sumBy(items, 'value')});
+
+  getDetailStyle() {
+    return {
+      display: 'inline-block',
+      verticalAlign: 'top',
+      marginTop: !this.state.detailsForMonth ? 20 : paperStyle.margin + monthHeight * this.state.detailsForMonth.split('-')[1]
+    };
+  }
+
+  static moveToCurrentMonth(item, monthYear) {
+    let fromThisMonth = item.monthYear.year === monthYear.year && item.monthYear.month === monthYear.month;
+    return {
+      id: item.id,
+      monthYear: monthYear,
+      value: item.value,
+      note: item.note,
+      repeated: item.repeated,
+      fromThisMonth: fromThisMonth
+    }
+  }
+
   render() {
     let detailStyle = this.getDetailStyle();
     return (
@@ -89,50 +134,4 @@ export class Stash extends React.Component {
     );
   }
 
-  static calculateDisplayValue(monthData) {
-    if (monthData === undefined || monthData.constructor !== Array || monthData[0] === undefined) {
-      return '--';
-    }
-    else if (!monthData[0].value) {
-      return '0';
-    }
-    return monthData[0].value;
-  }
-
-  static isBeforeMonthYear(item, monthYear) {
-    return item.monthYear.year <= monthYear.year
-        && item.monthYear.month <= monthYear.month
-        && item.repeated === true
-        || item.monthYear.year === monthYear.year
-        && item.monthYear.month === monthYear.month;
-  }
-
-  monthGrouping = item => {
-    let x = this.state.colapsed ? '' : (item.value >= 0 ? '-positive' : '-negative');
-    return item.monthYear.year + '-' + item.monthYear.month + (x)
-  };
-
-  static mapToSum = (items, key) => ({'monthYear': key, 'value': _.sumBy(items, 'value')});
-
-  getDetailStyle() {
-    return {
-      display: 'inline-block',
-      verticalAlign: 'top',
-      marginTop: !this.state.detailsForMonth ? 20 : paperStyle.margin + monthHeight * this.state.detailsForMonth.split('-')[1]
-    };
-  }
-
-  static moveToCurrentMonth(item, monthYear) {
-    console.log('current month', item.monthYear);
-
-    let fromThisMonth = item.monthYear.year === monthYear.year && item.monthYear.month === monthYear.month;
-    return {
-      id: item.id,
-      monthYear: monthYear,
-      value: item.value,
-      note: item.note,
-      repeated: item.repeated,
-      fromThisMonth: fromThisMonth
-    }
-  }
 }
