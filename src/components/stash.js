@@ -5,6 +5,7 @@ import {Fn} from "../Fn";
 import Button from "material-ui/es/Button/Button";
 import {MonthDetails} from "./monthDetails";
 import {Constants} from "../Constants";
+import Typography from "material-ui/es/Typography/Typography";
 
 const containerStyle = {
   height: 406,
@@ -29,12 +30,14 @@ export class Stash extends React.Component {
     return (
         <div style={containerStyle}>
           <Paper style={Constants.paperStyle}>
+            <Typography variant="title" gutterBottom>{this.props.stash.name}</Typography>
             <Button onClick={this.changeColapsed} color='primary' variant='raised' size={'small'}>{this.state.colapsed ? '±' : '+|-'}</Button>
             <List>
               {Constants.months.map((monthName, monthIndex) => {
                     let key = this.props.selectedYear + '-' + monthIndex;
                     let currentMonthYear = {year: this.props.selectedYear, month: monthIndex};
-                    let monthData = Fn.getGroupedItemsForMonth(this.props.stash, currentMonthYear, this.state.colapsed);
+                let items = this.props.stash.items;
+                let monthData = Fn.getGroupedItemsForMonth(items, currentMonthYear, this.state.colapsed);
                     if (this.state.colapsed) {
                       let displayValue = Fn.calculateDisplayValue(monthData);
                       return (
@@ -61,7 +64,7 @@ export class Stash extends React.Component {
           <Paper style={Constants.paperStyle}>
             <MonthDetails monthYear={{year: this.props.selectedYear, month: this.props.selectedMonth}}
                           settings={this.props.settings}
-                          stash={this.props.stash}
+                          items={this.props.stash.items}
                           addMethod={this.props.addMethod}
                           deleteMethod={this.props.deleteMethod}/>
           </Paper>
