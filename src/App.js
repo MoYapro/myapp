@@ -84,7 +84,7 @@ export default class App extends Component {
     return (
         <div>
           <div key='content' style={{width: 5000}} onKeyUp={this.handleKeyPress}>
-            <MonthsLegend year={this.state.year}/>
+            <MonthsLegend year={this.state.selectedYear}/>
             <Stash stash={stash}
                    selectedMonth={this.state.selectedMonth}
                    selectedYear={this.state.selectedYear}
