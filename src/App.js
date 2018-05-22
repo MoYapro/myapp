@@ -42,6 +42,7 @@ export default class App extends Component {
       }],
     selectedYear: 2018,
     selectedMonth: undefined,
+    selectedStash: undefined,
     settings: {
       repeatedColapsed: true
     },
@@ -71,21 +72,22 @@ export default class App extends Component {
       if (this.state.selectedMonth === undefined || this.state.selectedMonth === 0) {
         return;
       }
-      this.updateSelectedMonth(this.state.selectedMonth - 1);
+      this.updateSelectedMonth(this.state.selectedMonth - 1, this.state.selectedStash);
     } else if (Constants.downArrowCode === event.keyCode) {
       if (this.state.selectedMonth === undefined || this.state.selectedMonth === 11) {
         return;
       }
-      this.updateSelectedMonth(this.state.selectedMonth + 1)
+      this.updateSelectedMonth(this.state.selectedMonth + 1, this.state.selectedStash)
     }
   }
 
-  updateSelectedMonth = (month) => {
+  updateSelectedMonth = (month, stashName) => {
     if (month === undefined) {
       return;
     }
     this.setState(() => ({
-      selectedMonth: month
+      selectedMonth: month,
+      selectedStash: stashName
     }));
   };
 
@@ -97,7 +99,7 @@ export default class App extends Component {
             {this.state.stashes.map(stash =>
                 <Stash key={stash.name}
                        stash={stash}
-                       selectedMonth={this.state.selectedMonth}
+                       selectedMonth={this.state.selectedStash === stash.name ? this.state.selectedMonth : undefined}
                        selectedYear={this.state.selectedYear}
                        settings={this.state.settings}
                        addMethod={this.add}

@@ -19,7 +19,7 @@ export class Stash extends React.Component {
   };
 
   handleMonthClick = (monthYear) => () => {
-    this.props.updateSelectedMonth(monthYear);
+    this.props.updateSelectedMonth(monthYear, this.props.stash.name);
   };
 
   changeColapsed = () => {
