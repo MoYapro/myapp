@@ -38,7 +38,6 @@ export class Add extends React.Component {
     if (Add.isEmpty(this.state.note) || Add.isEmpty(this.state.note)) {
       return;
     }
-
     let stuff = {
       'monthYear': Add.asMonthYearObject(this.props.forMonthYear),
       'value': parseFloat(this.state.value),
@@ -46,7 +45,7 @@ export class Add extends React.Component {
       'repeated': this.state.repeated
     };
     stuff.monthYear.day = 1;
-    this.props.addMethod(stuff);
+    this.props.addMethod(stuff, this.props.forStashId);
     this.setState({value: '', note: ''});
   };
 

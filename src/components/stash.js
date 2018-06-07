@@ -65,6 +65,7 @@ export class Stash extends React.Component {
             <MonthDetails monthYear={{year: this.props.selectedYear, month: this.props.selectedMonth}}
                           settings={this.props.settings}
                           items={this.props.stash.items}
+                          stashId={this.props.stash.id}
                           addMethod={this.props.addMethod}
                           deleteMethod={this.props.deleteMethod}/>
           </Paper>

@@ -7,6 +7,7 @@ import {Constants} from "./Constants";
 export default class App extends Component {
   state = {
     stashes: [{
+      id: 1,
       name: 'Stash1',
       items: [
         {id: 1, monthYear: {year: 2018, month: 0, day: 10}, value: -12, repeated: false, note: 'Kino'},
@@ -34,6 +35,7 @@ export default class App extends Component {
       ]
     },
       {
+        id: 2,
         name: 'Stash2',
         items: [
           {id: 1, monthYear: {year: 2018, month: 0, day: 10}, value: -12, repeated: true, note: 'Kino'},
@@ -49,7 +51,8 @@ export default class App extends Component {
 
   };
 
-  add = (stuff) => {
+  add = (stuff, stashId) => {
+    console.log("add stuff to stashId: "+stashId);
     stuff.id = this.state.stash.length + 1;
     this.setState(({stash}) => ({
       stash: [

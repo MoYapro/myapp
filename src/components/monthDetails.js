@@ -40,7 +40,7 @@ export class MonthDetails extends React.Component {
                 }
             )}
           </List>
-          <Add forMonthYear={this.props.monthYear} addMethod={this.props.addMethod}/>
+          <Add forMonthYear={this.props.monthYear} forStashId={this.props.stashId} addMethod={this.props.addMethod}/>
         </div>
     )
   }
