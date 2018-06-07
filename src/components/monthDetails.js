@@ -12,7 +12,7 @@ import {Constants} from "../Constants";
 export class MonthDetails extends React.Component {
 
   handleDelete = id => () => {
-    this.props.deleteMethod(id);
+    this.props.deleteMethod(id, this.props.stashId);
   };
 
   render() {

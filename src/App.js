@@ -52,7 +52,7 @@ export default class App extends Component {
   };
 
   add = (stuff, stashId) => {
-    console.log("add stuff to stashId: "+stashId);
+    console.log("add stuff to stashId: " + stashId);
     stuff.id = this.state.stashes.length + 1;
     let newStashes = this.state.stashes;
     newStashes.filter(stash => stash.id === stashId)[0].items.push(stuff);
@@ -61,9 +61,12 @@ export default class App extends Component {
     }))
   };
 
-  delete = (id) => {
+  delete = (stuffId, stashId) => {
+    let newStashes = this.state.stashes;
+    console.log('delete', newStashes.filter(stash => stash.id === stashId)[0]);
+    newStashes.filter(stash => stash.id === stashId)[0].items = newStashes.filter(stash => stash.id === stashId)[0].items.filter(stuff => stuff.id !== stuffId);
     this.setState(() => ({
-      stash: this.state.stash.filter(stuff => stuff.id !== id)
+      stashes: newStashes
     }))
   };
 
