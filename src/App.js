@@ -4,8 +4,7 @@ import {Stash} from './components/stash'
 import {Settings} from "./components/settings";
 import {Constants} from "./Constants";
 
-const url = "https://persistenceapi-dot-moneyapp-204716.appspot.com/";
-// const url = 'http://localhost:8080';
+const url = 'http://localhost:8080';
 
 export default class App extends Component {
   state = {
@@ -22,9 +21,12 @@ export default class App extends Component {
   componentDidMount() {
     let that = this;
     fetch(url)
-    .then((resp) => resp.json()) // Transform the data into json
-    .then(function (data) {
-      console.log('loaded data', data);// Create and append the li's to the ul
+    .then((resp) => resp.json())
+    .then((data) => {
+      console.log('loaded data', data);
+      if(Array.isArray(data) && 0 < data.length) {
+        data = data[0]
+      }
       that.setState(data);
     });
   }
