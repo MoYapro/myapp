@@ -5,7 +5,8 @@ import {Settings} from "./components/settings";
 import {Constants} from "./Constants";
 import {Button, TextField} from "material-ui";
 
-const url = 'http://localhost:8080';
+const backendUrl = 'http://localhost:8080/';
+const loadUser = 'loadUser/';
 
 export default class App extends Component {
   state = {
@@ -19,10 +20,12 @@ export default class App extends Component {
 
   };
 
-  login = (userName) => {
-    this.setState(() => ({user: userName}));
+  login = e => {
+    e.preventDefault();
+    console.log('get data for user', this.state.enteredUserName);
+    this.setState({user: this.state.enteredUserName});
     let that = this;
-    fetch(url)
+    fetch(backendUrl + loadUser + this.state.enteredUserName)
     .then((resp) => resp.json())
     .then((data) => {
       console.log('loaded data', data);
@@ -78,8 +81,14 @@ export default class App extends Component {
     }));
   };
 
+  updateEnteredUserName = (event) => {
+    console.log(event.target.value);
+    this.setState({enteredUserName: event.target.value});
+    console.log('entered user name', this.state.enteredUserName);
+  };
+
   logout = () => {
-    this.setState({user: undefined, stashes: []});
+    this.setState({enteredUserName: 'default_user', user: undefined, stashes: []});
   };
 
   showUserData = () => {
@@ -112,11 +121,11 @@ export default class App extends Component {
           <form onSubmit={this.login} style={{textAlign: 'center'}}>
             <TextField
                 label='Dein Name'
-                value={this.state.user}
+                value={this.state.enteredUserName}
                 name='user'
                 margin='normal'
                 autoComplete='off'
-                error={this.state.noteError}
+                onChange={this.updateEnteredUserName}
             />
             <br/>
             <Button type='submit' color='primary' variant='raised'>Eintragen</Button>
