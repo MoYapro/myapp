@@ -82,9 +82,7 @@ export default class App extends Component {
   };
 
   updateEnteredUserName = (event) => {
-    console.log(event.target.value);
     this.setState({enteredUserName: event.target.value});
-    console.log('entered user name', this.state.enteredUserName);
   };
 
   logout = () => {
@@ -121,7 +119,7 @@ export default class App extends Component {
           <form onSubmit={this.login} style={{textAlign: 'center'}}>
             <TextField
                 label='Dein Name'
-                value={this.state.enteredUserName}
+                value={this.state.value}
                 name='user'
                 margin='normal'
                 autoComplete='off'
