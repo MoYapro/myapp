@@ -3,6 +3,7 @@ import {MonthsLegend} from './components/monthLegend'
 import {Stash} from './components/stash'
 import {Settings} from "./components/settings";
 import {Constants} from "./Constants";
+import {Button, TextField} from "material-ui";
 
 const url = 'http://localhost:8080';
 
@@ -18,7 +19,8 @@ export default class App extends Component {
 
   };
 
-  componentDidMount() {
+  login = (userName) => {
+    this.setState(() => ({user: userName}));
     let that = this;
     fetch(url)
     .then((resp) => resp.json())
@@ -29,7 +31,7 @@ export default class App extends Component {
       }
       that.setState(data);
     });
-  }
+  };
 
   add = (stuff, stashId) => {
     console.log("add stuff to stashId: " + stashId);
@@ -76,7 +78,11 @@ export default class App extends Component {
     }));
   };
 
-  render() {
+  logout = () => {
+    this.setState({user: undefined, stashes: []});
+  };
+
+  showUserData = () => {
     return (
         <div>
           <div key='content' style={{width: 5000}} onKeyUp={this.handleKeyPress}>
@@ -94,7 +100,36 @@ export default class App extends Component {
             )}
           </div>
           <Settings updateSettings={this.updateSettings} settings={this.state.settings}/>
+          <br />
+          <Button onClick={this.logout} color='secondary' variant='raised' size={'small'}>Ende</Button>
         </div>
     )
+  };
+
+  showUserSelect = () => {
+    return (
+        <div>
+          <form onSubmit={this.login} style={{textAlign: 'center'}}>
+            <TextField
+                label='Dein Name'
+                value={this.state.user}
+                name='user'
+                margin='normal'
+                autoComplete='off'
+                error={this.state.noteError}
+            />
+            <br/>
+            <Button type='submit' color='primary' variant='raised'>Eintragen</Button>
+          </form>
+        </div>
+    );
+  };
+
+  render() {
+    if(this.state.user) {
+      return this.showUserData();
+    } else {
+      return this.showUserSelect();
+    }
   }
 }
