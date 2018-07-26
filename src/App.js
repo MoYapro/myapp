@@ -5,9 +5,11 @@ import {NewStash} from './components/newStash'
 import {Settings} from "./components/settings";
 import {Constants} from "./Constants";
 import {Button, TextField} from "material-ui";
+import Typography from "material-ui/es/Typography/Typography";
 
 const backendUrl = 'http://localhost:8080/';
 const loadUser = 'loadUser/';
+const saveData = 'saveData/';
 
 export default class App extends Component {
   state = {
@@ -31,11 +33,36 @@ export default class App extends Component {
     .then((data) => {
       console.log('loaded data', data);
       if(Array.isArray(data) && 0 < data.length) {
-        data = data[0]
+        data = data[0].data;
       }
+      if('string' === typeof data) {
+        data = JSON.parse(data);
+      }
+      console.log('set state to', data);
       that.setState(data);
     });
   };
+
+  save = () => {
+    let user = this.state.user;
+    let data = this.state;
+    let saveUrl = backendUrl + saveData + user;
+    console.log('save data to', saveUrl);
+    console.log('saved data ',  data);
+    fetch(saveUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: JSON.stringify(data)
+      })
+    })
+    .then(postInfo => console.log(postInfo))
+    .catch(error => console.log('error while sending data', error));
+  };
+
 
   add = (stuff, stashId) => {
     console.log("add stuff to stashId: " + stashId);
@@ -96,13 +123,14 @@ export default class App extends Component {
     let nextStashId = newStashes.length+1;
     let newStash = {id: nextStashId,name: 'Konto'+nextStashId, items: []};
     newStashes.push(newStash);
-
     this.setState({stashes: newStashes});
+    this.save();
   };
 
   showUserData = () => {
     return (
         <div>
+          <Typography variant="title" gutterBottom>{this.state.user}</Typography>
           <div key='content' style={{width: 5000}} onKeyUp={this.handleKeyPress}>
             <MonthsLegend year={this.state.selectedYear} hidden={true}/>
             {this.state.stashes.map(stash =>
@@ -120,6 +148,7 @@ export default class App extends Component {
           </div>
           <Settings updateSettings={this.updateSettings} settings={this.state.settings}/>
           <br />
+          <Button onClick={this.save} color='primary' variant='raised' size={'small'}>Speichern</Button>
           <Button onClick={this.logout} color='secondary' variant='raised' size={'small'}>Ende</Button>
         </div>
     )
