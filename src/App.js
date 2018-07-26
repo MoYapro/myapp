@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {MonthsLegend} from './components/monthLegend'
 import {Stash} from './components/stash'
+import {NewStash} from './components/newStash'
 import {Settings} from "./components/settings";
 import {Constants} from "./Constants";
 import {Button, TextField} from "material-ui";
@@ -89,11 +90,21 @@ export default class App extends Component {
     this.setState({enteredUserName: 'default_user', user: undefined, stashes: []});
   };
 
+  addStash = () => {
+    console.log('add new stash');
+    let newStashes = this.state.stashes;
+    let nextStashId = newStashes.length+1;
+    let newStash = {id: nextStashId,name: 'Konto'+nextStashId, items: []};
+    newStashes.push(newStash);
+
+    this.setState({stashes: newStashes});
+  };
+
   showUserData = () => {
     return (
         <div>
           <div key='content' style={{width: 5000}} onKeyUp={this.handleKeyPress}>
-            <MonthsLegend year={this.state.selectedYear}/>
+            <MonthsLegend year={this.state.selectedYear} hidden={true}/>
             {this.state.stashes.map(stash =>
                 <Stash key={stash.name}
                        stash={stash}
@@ -105,6 +116,7 @@ export default class App extends Component {
                        updateSelectedMonth={this.updateSelectedMonth}
                 />
             )}
+            <NewStash addAction={this.addStash}/>
           </div>
           <Settings updateSettings={this.updateSettings} settings={this.state.settings}/>
           <br />

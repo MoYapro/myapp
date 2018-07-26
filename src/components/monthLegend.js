@@ -6,6 +6,7 @@ import {Constants} from "../Constants";
 
 export class MonthsLegend extends React.Component {
   render() {
+    if(this.props.hidden) return ('');
     return (
     <Paper style={Constants.paperStyle}>
       <Typography variant="title" gutterBottom>{this.props.year}</Typography>
