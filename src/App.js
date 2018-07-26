@@ -32,8 +32,14 @@ export default class App extends Component {
     .then((resp) => resp.json())
     .then((data) => {
       console.log('loaded data', data);
+      if (!data || !data[0] || !data[0].data) {
+        return;
+      }
       if(Array.isArray(data) && 0 < data.length) {
-        data = data[0].data;
+        data = data[0];
+      }
+      if (data.data !== undefined) {
+        data = data.data;
       }
       if('string' === typeof data) {
         data = JSON.parse(data);
