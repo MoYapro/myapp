@@ -138,7 +138,7 @@ export default class App extends Component {
         <div>
           <Typography variant="title" gutterBottom>{this.state.user}</Typography>
           <div key='content' style={{width: 5000}} onKeyUp={this.handleKeyPress}>
-            <MonthsLegend year={this.state.selectedYear} hidden={true}/>
+            <MonthsLegend year={this.state.selectedYear} hidden={0 === this.state.stashes.length}/>
             {this.state.stashes.map(stash =>
                 <Stash key={stash.name}
                        stash={stash}
