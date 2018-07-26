@@ -10,6 +10,7 @@ import Typography from "material-ui/es/Typography/Typography";
 const containerStyle = {
   height: 406,
   display: 'inline-block',
+  verticalAlign: 'top'
 };
 
 export class Stash extends React.Component {
