@@ -5,12 +5,17 @@ import Typography from "material-ui/es/Typography/Typography";
 import {Constants} from "../Constants";
 
 export class MonthsLegend extends React.Component {
+
+
   render() {
+  let listStyle = {
+    marginTop: 40
+  };
     if(this.props.hidden) return ('');
     return (
     <Paper style={Constants.paperStyle}>
       <Typography variant="title" gutterBottom>{this.props.year}</Typography>
-      <List>
+      <List style={listStyle}>
         {Constants.months.map((i) =>
             <ListItem key={i}>
               <ListItemText primary={i}/>
