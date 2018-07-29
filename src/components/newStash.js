@@ -1,14 +1,17 @@
 import React from 'react'
 import {Paper} from 'material-ui'
 import Button from "material-ui/es/Button/Button";
+import Typography from "material-ui/es/Typography/Typography";
+import {Constants} from "../Constants";
+import List from "material-ui/es/List/List";
 
 const containerStyle = {
   display: 'inline-block'
 };
 
 const paperStyle = {
-  height: 406,
-  width: 200,
+  height: 645,
+  width: 100,
   textAlign: 'center',
   display: 'inline-block',
   borderStyle: 'dashed',
@@ -25,6 +28,7 @@ export class NewStash extends React.Component {
     return (
         <div style={containerStyle}>
           <Paper style={paperStyle}>
+            <Typography variant="title" gutterTop>Neues Konto</Typography>
             <Button
                 variant="fab"
                 color="primary"
