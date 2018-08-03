@@ -78,6 +78,7 @@ export class Add extends React.Component {
               autoComplete='off'
               onChange={this.handleAmountChange}
               error={this.state.valueError}
+              autoFocus
           />
           <br/>
           <TextField

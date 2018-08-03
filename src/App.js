@@ -109,10 +109,17 @@ export default class App extends Component {
     if (month === undefined) {
       return;
     }
+    if(this.state.selectedMonth === month && this.state.selectedStash === stashName) {
+      this.setState(() => ({
+        selectedMonth: null,
+        selectedStash: ''
+      }));
+    } else {
     this.setState(() => ({
       selectedMonth: month,
       selectedStash: stashName
     }));
+    }
   };
 
   updateEnteredUserName = (event) => {
