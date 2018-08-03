@@ -28,7 +28,7 @@ export class NewStash extends React.Component {
     return (
         <div style={containerStyle}>
           <Paper style={paperStyle}>
-            <Typography variant="title" gutterTop>Neues Konto</Typography>
+            <Typography variant="title">Neues Konto</Typography>
             <Button
                 variant="fab"
                 color="primary"

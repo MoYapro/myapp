@@ -171,6 +171,7 @@ export default class App extends Component {
                 margin='normal'
                 autoComplete='off'
                 onChange={this.updateEnteredUserName}
+                autoFocus
             />
             <br/>
             <Button type='submit' color='primary' variant='raised'>Eintragen</Button>
