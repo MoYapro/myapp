@@ -10,7 +10,7 @@ export class Add extends React.Component {
     note: '',
     valueError: false,
     noteError: false,
-    repeated: true
+    repeated: false
   };
 
   handleAmountChange = (event) => {
