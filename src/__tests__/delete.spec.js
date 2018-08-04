@@ -45,12 +45,15 @@ const staticUserData = {
   }
 };
 
-describe('deleteFromStashes', () => {
-  it('does not remove anything if values are not found', () => {
+describe('wrongInputs', () => {
+  it('does not remove anything if stash is not found', () => {
     expect(deleteItem(staticUserData.stashes, 4711, 999)[1].items.length).toEqual(2);
   });
+  it('does not remove anything if item is not found', () => {
+    expect(deleteItem(staticUserData.stashes, 2, 999)[1].items.length).toEqual(2);
+  });
 });
-describe('deleteFromStashes', () => {
+describe('delete executed', () => {
   it('removes items if ids do match', () => {
     expect(deleteItem(staticUserData.stashes, 2, 1)[1].items.length).toEqual(1);
   });
