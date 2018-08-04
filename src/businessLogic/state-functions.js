@@ -1,6 +1,9 @@
 import {cloneOf} from './data-functions';
 
 export function deleteItem(stashes, stashId, itemId) {
+  if(!stashes) {
+    stashes = [];
+  }
   let newStashes = cloneOf(stashes);
   let stashToDeleteFrom = newStashes.filter(stash => stash.id === stashId);
   if (stashToDeleteFrom && 0 !== stashToDeleteFrom.length) {

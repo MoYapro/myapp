@@ -58,3 +58,11 @@ describe('delete executed', () => {
     expect(deleteItem(staticUserData.stashes, 2, 1)[1].items.length).toEqual(1);
   });
 });
+describe('corrupt inputs', () => {
+  it('does not crash on bullshit, all empty', () => {
+    expect(deleteItem()).toEqual([]);
+  });
+  it('does not crash on bullshit, bullshit', () => {
+    expect(deleteItem(null, 1, undefined)).toEqual([]);
+  });
+});
