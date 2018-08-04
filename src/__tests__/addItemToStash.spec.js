@@ -9,9 +9,15 @@ const startStash =
       ]
     };
 
-const testItem1 = {monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'new'};
-const testItem2 = {monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'new'};
-const testItem3 = {monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'new'};
+const emptyStash =
+    {
+      id: 1,
+      name: 'Stash1'
+    };
+
+const testItem1 = {monthYear: {year: 2018, month: 11, day: 1}, value: -5, repeated: false, note: 'new'};
+const testItem2 = {monthYear: {year: 2018, month: 11, day: 2}, value: -5, repeated: false, note: 'new'};
+const testItem3 = {monthYear: {year: 2018, month: 11, day: 3}, value: -5, repeated: false, note: 'new'};
 
 const expectedStash =
     {
@@ -19,7 +25,7 @@ const expectedStash =
       name: 'Stash1',
       items: [
         {id: 1, monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'old'},
-        {id: 2, monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'new'}
+        {id: 2, monthYear: {year: 2018, month: 11, day: 1}, value: -5, repeated: false, note: 'new'}
       ]
     };
 
@@ -29,9 +35,19 @@ const expectedStashAddMultiple =
       name: 'Stash1',
       items: [
         {id: 1, monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'old'},
-        {id: 2, monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'new'},
-        {id: 3, monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'new'},
-        {id: 4, monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'new'}
+        {id: 2, monthYear: {year: 2018, month: 11, day: 1}, value: -5, repeated: false, note: 'new'},
+        {id: 3, monthYear: {year: 2018, month: 11, day: 2}, value: -5, repeated: false, note: 'new'},
+        {id: 4, monthYear: {year: 2018, month: 11, day: 3}, value: -5, repeated: false, note: 'new'}
+      ]
+    };
+
+
+const emptyStashAfter =
+    {
+      id: 2,
+      name: 'empty',
+      items: [
+        {id: 1, monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'new'},
       ]
     };
 
@@ -52,5 +68,11 @@ let addMultiple = () => {
 describe('addItems', () => {
   it('knows how to add multiple items to a stash', () => {
     expect(addMultiple()).toEqual(expectedStashAddMultiple);
+  });
+});
+
+describe('addItemsToEmpty', () => {
+  it('knows how to add an item to an empty stash', () => {
+    expect(addItem(emptyStash, startStash.items[0])).toEqual(startStash);
   });
 });
