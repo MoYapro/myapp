@@ -91,3 +91,12 @@ describe('displayMonth repeat in stash', () => {
     expect(monthItems(staticUserData.stashes[2], 2018, 1).length).toEqual(2);
   });
 });
+
+describe('displayMonth repeat + no-repeat in stash', () => {
+  it('first month', () => {
+    expect(monthItems(staticUserData.stashes[0], 2018, 0).length).toEqual(11);
+  });
+  it('2nd month', () => {
+    expect(monthItems(staticUserData.stashes[0], 2018, 1).length).toEqual(8);
+  });
+});
