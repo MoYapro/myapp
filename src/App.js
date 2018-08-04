@@ -80,10 +80,10 @@ export default class App extends Component {
     }))
   };
 
-  delete = (stuffId, stashId) => {
+  delete = (itemId, stashId) => {
     let newStashes = this.state.stashes;
     console.log('delete', newStashes.filter(stash => stash.id === stashId)[0]);
-    newStashes.filter(stash => stash.id === stashId)[0].items = newStashes.filter(stash => stash.id === stashId)[0].items.filter(stuff => stuff.id !== stuffId);
+    newStashes.filter(stash => stash.id === stashId)[0].items = newStashes.filter(stash => stash.id === stashId)[0].items.filter(stuff => stuff.id !== itemId);
     this.setState(() => ({
       stashes: newStashes
     }))

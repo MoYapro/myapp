@@ -1,14 +1,4 @@
-import {cloneOf} from '../businessLogic/data-functions';
-
-const startStash =
-    {
-      id: 1,
-      name: 'Stash1',
-      items: [
-        {id: 1, monthYear: {year: 2018, month: 11, day: 31}, value: -5, repeated: false, note: 'old'}
-      ]
-    };
-
+import {deleteItem} from '../businessLogic/state-functions';
 
 const staticUserData = {
   stashes: [{
@@ -55,36 +45,13 @@ const staticUserData = {
   }
 };
 
-describe('clone stash', () => {
-  it('knows how to clone a stash', () => {
-    expect(cloneOf(startStash)).toEqual(startStash);
+describe('deleteFromStashes', () => {
+  it('does not remove anything if values are not found', () => {
+    expect(deleteItem(staticUserData.stashes, 4711, 999)[1].items.length).toEqual(2);
   });
 });
-
-describe('clone stash checked', () => {
-  it('knows how to clone a stash and it really is a clone', () => {
-    function cloneAndModifyOriginal() {
-      const clone = cloneOf(startStash);
-      clone.id = 'you failed';
-      return clone;
-    }
-    expect(cloneAndModifyOriginal()).not.toEqual(startStash);
-  });
-});
-
-describe('clone user state', () => {
-  it('knows how to clone a complete user state', () => {
-    expect(cloneOf(staticUserData)).toEqual(staticUserData);
-  });
-});
-
-describe('clone stash checked', () => {
-  it('knows how to clone a complete user state and it really is a clone', () => {
-    function cloneAndModifyOriginal() {
-      const clone = cloneOf(staticUserData);
-      clone.id = 'you failed';
-      return clone;
-    }
-    expect(cloneAndModifyOriginal()).not.toEqual(staticUserData);
+describe('deleteFromStashes', () => {
+  it('removes items if ids do match', () => {
+    expect(deleteItem(staticUserData.stashes, 2, 1)[1].items.length).toEqual(1);
   });
 });
