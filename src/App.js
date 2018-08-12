@@ -6,6 +6,7 @@ import {Settings} from "./components/settings";
 import {Constants} from "./Constants";
 import {Button, TextField} from "material-ui";
 import Typography from "material-ui/es/Typography/Typography";
+import {deleteItem, addItem, findStashById, replaceStashInStashes} from './businessLogic/stash-functions';
 
 const backendUrl = 'http://localhost:8080/';
 const loadUser = 'loadUser/';
@@ -70,22 +71,17 @@ export default class App extends Component {
   };
 
 
-  add = (stuff, stashId) => {
-    console.log("add stuff to stashId: " + stashId);
-    stuff.id = this.state.stashes.length + 1;
+  add = (item, stashId) => {
     let newStashes = this.state.stashes;
-    newStashes.filter(stash => stash.id === stashId)[0].items.push(stuff);
+    let newStash = addItem(findStashById(newStashes, stashId), item);
     this.setState(() => ({
-      stashes: newStashes
+      stashes: replaceStashInStashes(newStashes, stashId, newStash)
     }))
   };
 
   delete = (itemId, stashId) => {
-    let newStashes = this.state.stashes;
-    console.log('delete', newStashes.filter(stash => stash.id === stashId)[0]);
-    newStashes.filter(stash => stash.id === stashId)[0].items = newStashes.filter(stash => stash.id === stashId)[0].items.filter(stuff => stuff.id !== itemId);
     this.setState(() => ({
-      stashes: newStashes
+      stashes: deleteItem(this.state.stashes, stashId, itemId)
     }))
   };
 

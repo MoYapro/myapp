@@ -1,4 +1,4 @@
-import {addItem} from '../businessLogic/state-functions';
+import {addItem} from '../businessLogic/stash-functions';
 
 const startStash =
     {
