@@ -42,8 +42,10 @@ function getIndexForStashId(stashes, stashId) {
   }
 }
 
-export function replaceStashInStashes(stashes, stashId, stash) {
-  let stashIndex = getIndexForStashId(stashes, stashId);
+export function replaceStashInStashes(stashes, stashToReplaceId, stash) {
+  let stashIndex = getIndexForStashId(stashes, stashToReplaceId);
+  console.log(stashes);
+  console.log(stashIndex);
   stashes[stashIndex] = stash;
   return stashes;
 }
@@ -73,11 +75,13 @@ function moveToCurrentMonth(item, monthYear) {
 }
 
 function isBeforeMonthYear(item, monthYear) {
-  return item.monthYear.year <= monthYear.year
-      && item.monthYear.month <= monthYear.month
-      && item.repeated === true
-      || item.monthYear.year === monthYear.year
-      && item.monthYear.month === monthYear.month;
+  return (item.monthYear.year <= monthYear.year
+          && item.monthYear.month <= monthYear.month
+          && item.repeated === true
+      )
+      ||
+      (item.monthYear.year === monthYear.year
+          && item.monthYear.month === monthYear.month);
 }
 
 function isInMonthYear(item, monthYear) {

@@ -12,10 +12,10 @@ const newStash = {
 
 
 describe('update a stash in stashes', () => {
-  it('knows how to find a stash by id I', () => {
-    expect(replaceStashInStashes(staticUserData.stashes, 2, newStash)).toEqual(staticUserData.stashes[1]);
+  it('knows how to update a stash by id', () => {
+    expect(replaceStashInStashes(staticUserData.stashes, 2, newStash)[1]).toEqual(newStash);
   });
-  it('knows how to find a stash by id II', () => {
-    expect(findStashById(staticUserData.stashes, 2)).toEqual(staticUserData.stashes[1]);
+  it('knows how to ignore an unknown id', () => {
+    expect(replaceStashInStashes(staticUserData.stashes, -1)).toEqual(staticUserData.stashes);
   });
 });
